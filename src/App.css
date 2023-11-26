@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+/* .container .loginContainer {
+  /* d-flex justify-content-center align-items-center h-75 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  margin-top: 10rem;
+}
+
+.loginButton button {
+  background-color: blue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.container .loginContainer input[type="email"],
+.container .loginContainer input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+} */
