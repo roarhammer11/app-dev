@@ -4,23 +4,23 @@ const Account = require("../model-components/accountModelComponent");
 // const FacultyAccount = require("../model-components/facultyModelComponent");
 // const AdminAccount = require("../model-components/adminModelComponent");
 
-const findByEmail = (req, res) => {
-  simultaneouslyQueryEmail(req, function (status) {
-    res(status);
-  });
-};
+// const findByEmail = (req, res) => {
+//   simultaneouslyQueryEmail(req, function (status) {
+//     res(status);
+//   });
+// };
 
-//Attemps to find email first on student table then goes to faculty table
-const simultaneouslyQueryEmail = (req, res) => {
-  Account.findByEmail(req, function (err, account) {
-    if (err) {
-      res.send(err);
-    }
-    if (Object.keys(account).length !== 0) {
-      res(409);
-    }
-  });
-};
+// //Attemps to find email first on student table then goes to faculty table
+// const simultaneouslyQueryEmail = (req, res) => {
+//   Account.findByEmail(req, function (err, account) {
+//     if (err) {
+//       res.send(err);
+//     }
+//     if (Object.keys(account).length !== 0) {
+//       res(409);
+//     }
+//   });
+// };
 
 //   const findByAccountId = (req, res) => {
 //     simultaneouslyQueryAccountID(req, function (status) {
@@ -40,34 +40,29 @@ const simultaneouslyQueryEmail = (req, res) => {
 //     });
 //   };
 
-exports.create = function (req, res) {
-  var x = Account;
-  const newAccount = new x(req.body);
+exports.signup = function (req, res) {
+  const newAccount = new Account(req.body);
   //handles null error
-  // console.log(req.body);
-  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-    res
-      .status(400)
-      .send({error: true, message: "Please provide all required field"});
-  } else {
-    findByEmail(newAccount["email"], function (status) {
-      if (status === 200) {
-        x.createAccount(newAccount, function (err, accountId) {
-          if (err) {
-            res.send(err);
-          }
-          res.json({
-            error: false,
-            status: 200,
-            message: "New record has successfully been added.",
-            data: accountId,
-          });
+  // console.log(newAccount["email"]);
+  Account.findByEmail(newAccount["email"], function (err, email) {
+    console.log(email.length);
+    if (email.length === 0) {
+      Account.createAccount(newAccount, function (err, accountId) {
+        if (err) {
+          res.send(err);
+        }
+        res.json({
+          error: false,
+          status: 200,
+          message:
+            newAccount.name + "'s account has been successfully created.",
+          data: accountId,
         });
-      } else {
-        res.status(409).send({error: true, message: "Email already exists."});
-      }
-    });
-  }
+      });
+    } else {
+      res.status(409).send({error: true, message: "Email already exists."});
+    }
+  });
 };
 
 // exports.findById = function (req, res) {
@@ -109,11 +104,13 @@ exports.login = function (req, res) {
   Account.findByEmailAndPassword(
     req.body.email,
     req.body.password,
-    function (err, count, accountId, userType, name, role) {
+    function (err, count, accountId, name, email) {
       if (err) {
         res.status(err.statusCode).json({success: false});
       } else if (count > 0) {
-        res.status(200).json({success: true, accountId, userType, name, role});
+        res.status(200).json({success: true, accountId, name, email});
+      } else {
+        res.status(404).json({success: false});
       }
     }
   );

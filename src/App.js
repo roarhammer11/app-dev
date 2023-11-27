@@ -2,7 +2,7 @@
 import "./App.css";
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import Login from "./components/TempLogin";
+import Login from "./components/Index";
 function App() {
   React.useEffect(() => {
     const adminNavbar = document.getElementById("adminNavbar");
@@ -30,7 +30,7 @@ function App() {
           }
         };
       }
-    } 
+    }
     // else {
     //   document.getElementById("loginForm").hidden = false;
     // }

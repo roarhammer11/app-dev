@@ -5,7 +5,7 @@ const accountController = require("../controller-components/accountControllerCom
 // const appointmentController = require("../controller-components/appointmentControllerComponent");
 router.post("/login", accountController.login);
 //Accounts
-router.post("/addAccount", accountController.create);
+router.post("/signup", accountController.signup);
 // router.post("/retrieveAccounts", accountController.retrieveAccounts);
 // router.patch("/disableAccount", accountController.disableAccount);
 // router.patch("/updateAccount", accountController.updateAccount);
