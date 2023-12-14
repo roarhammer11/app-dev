@@ -3,6 +3,7 @@ import "./App.css";
 import React from "react";
 import {Route, Routes} from "react-router-dom";
 import Login from "./components/Index";
+import Dashboard from "./components/temporary/Dashboard";
 function App() {
   React.useEffect(() => {
     const adminNavbar = document.getElementById("adminNavbar");
@@ -54,6 +55,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           {/* <Route path="/home" element={<Home />} />
           <Route path="/my_meetings" element={<My_meetings />} />
           <Route path="/create_meeting" element={<Create_meeting />} />
