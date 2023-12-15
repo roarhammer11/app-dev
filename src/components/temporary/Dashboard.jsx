@@ -1,3 +1,4 @@
+import GoogleMaps from "../Map";
 function Dashboard() {
   return (
     <div>
@@ -289,7 +290,9 @@ function Dashboard() {
       </header>
 
       <main style={{marginTop: 58 + "px"}}>
-        <div class="container pt-4"></div>
+        <div class="container pt-4">
+          <GoogleMaps />
+        </div>
       </main>
     </div>
   );
