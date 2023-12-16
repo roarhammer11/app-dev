@@ -4,6 +4,10 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import Login from "./components/Index";
 import Dashboard from "./components/temporary/Dashboard";
+import {faBell} from "@fortawesome/fontawesome-free-solid";
+import {fas} from "@fortawesome/free-solid-svg-icons";
+import fontawesome from "@fortawesome/fontawesome";
+fontawesome.library.add(fas, faBell);
 function App() {
   React.useEffect(() => {
     const adminNavbar = document.getElementById("adminNavbar");

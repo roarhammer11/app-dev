@@ -1,91 +1,36 @@
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import GoogleMaps from "../Map";
+// import {Dropdown, Ripple, initMDB} from "mdb-ui-kit";
+// import React, {useState} from "react";
+
+import Dropdown from "react-bootstrap/Dropdown";
+
 function Dashboard() {
+  // initMDB({Dropdown, Ripple});
+
   return (
     <div>
       <header>
         <nav
           id="sidebarMenu"
-          class="collapse d-lg-block sidebar collapse bg-white"
+          className="collapse d-lg-block sidebar collapse bg-white"
         >
-          <div class="position-sticky">
-            <div class="list-group list-group-flush mx-3 mt-4">
+          <div className="position-sticky">
+            <div className="list-group list-group-flush mx-3 mt-4">
               <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
+                href="/dashboard"
+                className="list-group-item list-group-item-action py-2 ripple"
                 aria-current="true"
               >
-                <i class="fas fa-tachometer-alt fa-fw me-3"></i>
+                <i className="fas fa-tachometer-alt fa-fw me-3"></i>
                 <span>Main dashboard</span>
               </a>
               <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple active"
+                href="/dashboard"
+                className="list-group-item list-group-item-action py-2 ripple active"
               >
-                <i class="fas fa-chart-area fa-fw me-3"></i>
+                <i className="fas fa-chart-area fa-fw me-3"></i>
                 <span>Webiste traffic</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-lock fa-fw me-3"></i>
-                <span>Password</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-chart-line fa-fw me-3"></i>
-                <span>Analytics</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-chart-pie fa-fw me-3"></i>
-                <span>SEO</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-chart-bar fa-fw me-3"></i>
-                <span>Orders</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-globe fa-fw me-3"></i>
-                <span>International</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-building fa-fw me-3"></i>
-                <span>Partners</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-calendar fa-fw me-3"></i>
-                <span>Calendar</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-users fa-fw me-3"></i>
-                <span>Users</span>
-              </a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-money-bill fa-fw me-3"></i>
-                <span>Sales</span>
               </a>
             </div>
           </div>
@@ -93,11 +38,11 @@ function Dashboard() {
 
         <nav
           id="main-navbar"
-          class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+          className="navbar navbar-expand-lg navbar-light bg-white fixed-top"
         >
-          <div class="container-fluid">
+          <div className="container-fluid">
             <button
-              class="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-mdb-toggle="collapse"
               data-mdb-target="#sidebarMenu"
@@ -105,10 +50,10 @@ function Dashboard() {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <i class="fas fa-bars"></i>
+              <i className="fas fa-bars"></i>
             </button>
 
-            <a class="navbar-brand" href="#">
+            <a className="navbar-brand" href="/dashboard">
               <img
                 src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
                 height="25"
@@ -117,180 +62,89 @@ function Dashboard() {
               />
             </a>
 
-            <form class="d-none d-md-flex input-group w-auto my-auto">
+            <form className="d-none d-md-flex input-group w-auto my-auto">
               <input
-                autocomplete="off"
+                autoComplete="off"
                 type="search"
-                class="form-control rounded"
+                className="form-control rounded"
                 placeholder='Search (ctrl + "/" to focus)'
                 style={{minWidth: 225 + "px"}}
               />
-              <span class="input-group-text border-0">
-                <i class="fas fa-search"></i>
+              <span className="input-group-text border-0">
+                <i className="fas fa-search"></i>
               </span>
             </form>
 
-            <ul class="navbar-nav ms-auto d-flex flex-row">
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
+            <ul className="navbar-nav ms-auto d-flex flex-row">
+              <Dropdown>
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  className="hidden-arrow"
+                  style={{
+                    backgroundColor: "white",
+                    borderColor: "white",
+                    boxShadow: "none",
+                    marginTop: 0.6 + "rem",
+                    padding: 0,
+                  }}
                 >
-                  <i class="fas fa-bell"></i>
-                  <span class="badge rounded-pill badge-notification bg-danger">
+                  <i className="fas fa-bell" style={{color: "black"}} />
+                  <span
+                    className=" translate-middle badge rounded-pill bg-danger"
+                    // style={{marginLeft: 10}}
+                  >
                     1
                   </span>
-                </a>
-                <ul
-                  class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/dashboard">
                       Some news
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/dashboard">
                       Another news
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/dashboard">
                       Something else here
                     </a>
                   </li>
-                </ul>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link me-3 me-lg-0" href="#">
-                  <i class="fas fa-fill-drip"></i>
-                </a>
-              </li>
-
-              <li class="nav-item me-3 me-lg-0">
-                <a class="nav-link" href="#">
-                  <i class="fab fa-github"></i>
-                </a>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i class="united kingdom flag m-0"></i>
-                </a>
-                <ul
-                  class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdown"
-                >
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="united kingdom flag"></i>English
-                      <i class="fa fa-check text-success ms-2"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-poland flag"></i>Polski
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-china flag"></i>中文
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-japan flag"></i>日本語
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-germany flag"></i>Deutsch
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-france flag"></i>Français
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-spain flag"></i>Español
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-russia flag"></i>Русский
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="flag-portugal flag"></i>Português
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
+                </Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  className="hidden-arrow"
+                  style={{
+                    backgroundColor: "white",
+                    borderColor: "white",
+                    boxShadow: "none",
+                  }}
                 >
                   <img
                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
-                    class="rounded-circle"
+                    className="rounded-circle"
                     height="22"
                     alt="Avatar"
                     loading="lazy"
                   />
-                </a>
-                <ul
-                  class="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      My profile
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Logout
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/dashboard/#">My profile</Dropdown.Item>
+                  <Dropdown.Item href="/dashboard/#">Settings</Dropdown.Item>
+                  <Dropdown.Item href="/">Logout</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </ul>
           </div>
         </nav>
       </header>
 
       <main style={{marginTop: 58 + "px"}}>
-        <div class="container pt-4">
+        <div className="container pt-4" style={{marginLeft: 30 + "vh"}}>
           <GoogleMaps />
         </div>
       </main>
