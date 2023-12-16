@@ -2,8 +2,6 @@
 const Account = require("../model-components/accountModelComponent");
 exports.signup = function (req, res) {
   const newAccount = new Account(req.body);
-  //handles null error
-  // console.log(newAccount["email"]);
   Account.findByEmail(newAccount["email"], function (err, email) {
     console.log(email.length);
     if (email.length === 0) {

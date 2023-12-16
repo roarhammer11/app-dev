@@ -36,41 +36,13 @@ function App() {
         };
       }
     }
-    // else {
-    //   document.getElementById("loginForm").hidden = false;
-    // }
   }, []);
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
       <div className="container">
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/home" element={<Home />} />
-          <Route path="/my_meetings" element={<My_meetings />} />
-          <Route path="/create_meeting" element={<Create_meeting />} />
-          <Route path="/available_sched" element={<Available_sched />} />
-          <Route path="/faculty_home" element={<FacultyHome />} />
-          <Route path="/faculty_meetings" element={<FacultyMeetings />} />
-          <Route path="/faculty_schedule" element={<FacultySched />} />
-          <Route path="/admin_dashboard" element={<AdminDashboard />} />
-          <Route path="/admin_appointments" element={<AdminAppointments />} />
-          <Route path="/admin_students" element={<AdminStudents />} />
-          <Route path="/admin_faculty" element={<AdminFaculty />} /> */}
         </Routes>
       </div>
     </div>

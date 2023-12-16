@@ -1,7 +1,21 @@
 import GoogleMaps from "../Map";
 import Dropdown from "react-bootstrap/Dropdown";
+import UserProfile from "../UserInfoWrapper";
+import {useEffect} from "react";
 function Dashboard() {
-  return (
+  useEffect(() => {
+    if (sessionStorage.length > 0) {
+      sessionHandler();
+    }
+  });
+  const sessionHandler = () => {
+    document.getElementById("userName").innerHTML = UserProfile.getName();
+  };
+  const clearSession = () => {
+    UserProfile.clearSession();
+  };
+
+  return sessionStorage.length > 0 ? (
     <div>
       <header>
         <nav
@@ -128,7 +142,9 @@ function Dashboard() {
                 <Dropdown.Menu>
                   <Dropdown.Item href="/dashboard/#">My profile</Dropdown.Item>
                   <Dropdown.Item href="/dashboard/#">Settings</Dropdown.Item>
-                  <Dropdown.Item href="/">Logout</Dropdown.Item>
+                  <Dropdown.Item href="/" onClick={clearSession}>
+                    Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </ul>
@@ -138,9 +154,12 @@ function Dashboard() {
       <main style={{marginTop: 58 + "px"}}>
         <div className="container pt-4" style={{marginLeft: 30 + "vh"}}>
           <GoogleMaps />
+          <div id="userName"></div>
         </div>
       </main>
     </div>
+  ) : (
+    <div>You do not have access to this page.</div>
   );
 }
 

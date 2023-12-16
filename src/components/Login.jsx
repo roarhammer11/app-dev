@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import UserProfile from "./UserInfoWrapper";
 import {
   MDBTabsPane,
   MDBBtn,
@@ -31,6 +32,7 @@ function Login({justifyActive}) {
       alert("User not found, please register");
     } else {
       alert("Welcome Back " + responseData.name);
+      UserProfile.setName(responseData.name);
       window.history.pushState(null, null, window.location.href + "dashboard");
       window.location.reload();
     }
