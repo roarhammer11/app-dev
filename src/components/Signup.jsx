@@ -12,6 +12,7 @@ function Signup({justifyActive}) {
     email: "",
     password: "",
     repeatPassword: "",
+    userType: "User",
   });
 
   const handleSignupSubmit = (event) => {
@@ -92,6 +93,16 @@ function Signup({justifyActive}) {
         <p className="text-center mt-3">or:</p>
       </div>
       <form onSubmit={handleSignupSubmit} id="signUpForm">
+        <select
+          name="userType"
+          id="form1"
+          value={formValue.userType}
+          onChange={onChange}
+          required
+        >
+          <option value="User">User</option>
+          <option value="Seller">Seller</option>
+        </select>
         <MDBInput
           value={formValue.name}
           onChange={onChange}

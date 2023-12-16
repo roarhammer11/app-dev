@@ -6,6 +6,7 @@ class Account {
     this.name = account.name;
     this.email = account.email;
     this.password = account.password;
+    this.userType = account.userType;
   }
   //create account
   static createAccount(newAccount, result) {

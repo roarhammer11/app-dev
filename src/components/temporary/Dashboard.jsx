@@ -1,13 +1,6 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import GoogleMaps from "../Map";
-// import {Dropdown, Ripple, initMDB} from "mdb-ui-kit";
-// import React, {useState} from "react";
-
 import Dropdown from "react-bootstrap/Dropdown";
-
 function Dashboard() {
-  // initMDB({Dropdown, Ripple});
-
   return (
     <div>
       <header>
@@ -142,7 +135,6 @@ function Dashboard() {
           </div>
         </nav>
       </header>
-
       <main style={{marginTop: 58 + "px"}}>
         <div className="container pt-4" style={{marginLeft: 30 + "vh"}}>
           <GoogleMaps />
