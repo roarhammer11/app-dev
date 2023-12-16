@@ -1,18 +1,20 @@
 import GoogleMaps from "../Map";
 import Dropdown from "react-bootstrap/Dropdown";
 import UserProfile from "../UserInfoWrapper";
-import {useEffect} from "react";
 function Dashboard() {
-  useEffect(() => {
-    if (sessionStorage.length > 0) {
-      sessionHandler();
-    }
-  });
-  const sessionHandler = () => {
-    document.getElementById("userName").innerHTML = UserProfile.getName();
-  };
   const clearSession = () => {
     UserProfile.clearSession();
+  };
+
+  const menuController = (e) => {
+    const activeMenu = document.getElementsByClassName("active")[0];
+    const menuToBeActivated = e.currentTarget;
+    if (activeMenu !== menuToBeActivated) {
+      activeMenu.classList.remove("active");
+      menuToBeActivated.classList.add("active");
+    }
+    console.log(activeMenu);
+    console.log(menuToBeActivated);
   };
 
   return sessionStorage.length > 0 ? (
@@ -23,22 +25,25 @@ function Dashboard() {
           className="collapse d-lg-block sidebar collapse bg-white"
         >
           <div className="position-sticky">
-            <div className="list-group list-group-flush mx-3 mt-4">
-              <a
-                href="/dashboard"
+            <div
+              className="list-group list-group-flush mx-3 mt-4"
+              id="sidebarLinks"
+            >
+              <button
                 className="list-group-item list-group-item-action py-2 ripple"
-                aria-current="true"
+                // aria-current="true"
+                onClick={menuController}
               >
                 <i className="fas fa-tachometer-alt fa-fw me-3"></i>
                 <span>Main dashboard</span>
-              </a>
-              <a
-                href="/dashboard"
+              </button>
+              <button
                 className="list-group-item list-group-item-action py-2 ripple active"
+                onClick={menuController}
               >
                 <i className="fas fa-chart-area fa-fw me-3"></i>
                 <span>Webiste traffic</span>
-              </a>
+              </button>
             </div>
           </div>
         </nav>
@@ -140,6 +145,9 @@ function Dashboard() {
                   />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                  <div className="text-center">
+                    Hello {UserProfile.getName()}
+                  </div>
                   <Dropdown.Item href="/dashboard/#">My profile</Dropdown.Item>
                   <Dropdown.Item href="/dashboard/#">Settings</Dropdown.Item>
                   <Dropdown.Item href="/" onClick={clearSession}>
@@ -154,7 +162,6 @@ function Dashboard() {
       <main style={{marginTop: 58 + "px"}}>
         <div className="container pt-4" style={{marginLeft: 30 + "vh"}}>
           <GoogleMaps />
-          <div id="userName"></div>
         </div>
       </main>
     </div>
