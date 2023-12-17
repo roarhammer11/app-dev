@@ -160,8 +160,8 @@ function Landing() {
               <MDBCard>
                 <MDBCardBody>
                   <form>
-                    <p className="h5 text-center mb-4">What are your favorite cuisines?</p>
-                    <MDBInput icon="search" hint="Search recipes here..." />
+                    <p className="h5 text-center mb-4">What do you feel like eating today?</p>
+                    <MDBInput icon="search" hint="Search restaurants here..." />
                     <MDBBtn color="primary" type="submit">
                       Personalize Your Experience
                     </MDBBtn>
