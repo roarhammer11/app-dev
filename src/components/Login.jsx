@@ -33,6 +33,7 @@ function Login({justifyActive}) {
     } else {
       alert("Welcome Back " + responseData.name);
       UserProfile.setName(responseData.name);
+      UserProfile.setUsertype(responseData.userType);
       window.history.pushState(null, null, window.location.href + "dashboard");
       window.location.reload();
     }

@@ -47,7 +47,8 @@ class Account {
           res.length,
           Object.values(res)[0]?.accountId,
           Object.values(res)[0]?.name,
-          Object.values(res)[0]?.email
+          Object.values(res)[0]?.email,
+          Object.values(res)[0]?.userType
         );
       }
     });

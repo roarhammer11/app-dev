@@ -27,11 +27,11 @@ exports.login = function (req, res) {
   Account.findByEmailAndPassword(
     req.body.email,
     req.body.password,
-    function (err, count, accountId, name, email) {
+    function (err, count, accountId, name, email, userType) {
       if (err) {
         res.status(err.statusCode).json({success: false});
       } else if (count > 0) {
-        res.status(200).json({success: true, accountId, name, email});
+        res.status(200).json({success: true, accountId, name, email, userType});
       } else {
         res.status(404).json({success: false});
       }

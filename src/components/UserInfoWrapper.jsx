@@ -1,19 +1,27 @@
 var UserProfile = (function () {
-  var getName = function () {
-    return sessionStorage.getItem("name");
-  };
-
-  var setName = function (name) {
+  const setName = (name) => {
     sessionStorage.setItem("name", name);
   };
 
-  var clearSession = function () {
+  const setUsertype = (userType) => {
+    sessionStorage.setItem("userType", userType);
+  };
+
+  const getName = () => {
+    return sessionStorage.getItem("name");
+  };
+  const getUserType = () => {
+    return sessionStorage.getItem("userType");
+  };
+  const clearSession = function () {
     sessionStorage.clear();
   };
 
   return {
-    getName: getName,
     setName: setName,
+    setUsertype: setUsertype,
+    getName: getName,
+    getUserType: getUserType,
     clearSession: clearSession,
   };
 })();

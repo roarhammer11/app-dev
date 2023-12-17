@@ -1,6 +1,7 @@
 import GoogleMaps from "../Map";
 import Dropdown from "react-bootstrap/Dropdown";
 import UserProfile from "../UserInfoWrapper";
+import SellerMenu from "../SellerMenu";
 function Dashboard() {
   const clearSession = () => {
     UserProfile.clearSession();
@@ -9,12 +10,27 @@ function Dashboard() {
   const menuController = (e) => {
     const activeMenu = document.getElementsByClassName("active")[0];
     const menuToBeActivated = e.currentTarget;
+    const dashboardContent = document.getElementById("dashboardContent");
+    const map = document.getElementById("googleMap");
+    const sellerMenu = document.getElementById("sellerContent");
     if (activeMenu !== menuToBeActivated) {
       activeMenu.classList.remove("active");
       menuToBeActivated.classList.add("active");
+      console.log(menuToBeActivated.id);
+      if (menuToBeActivated.id === "mainDashboard") {
+        dashboardContent.hidden = false;
+        map.hidden = true;
+        sellerMenu.hidden = true;
+      } else if (menuToBeActivated.id === "map") {
+        map.hidden = false;
+        dashboardContent.hidden = true;
+        sellerMenu.hidden = true;
+      } else if (menuToBeActivated.id === "sellerMenu") {
+        sellerMenu.hidden = false;
+        map.hidden = true;
+        dashboardContent.hidden = true;
+      }
     }
-    console.log(activeMenu);
-    console.log(menuToBeActivated);
   };
 
   return sessionStorage.length > 0 ? (
@@ -30,19 +46,29 @@ function Dashboard() {
               id="sidebarLinks"
             >
               <button
-                className="list-group-item list-group-item-action py-2 ripple"
+                className="list-group-item list-group-item-action py-2 ripple active"
                 // aria-current="true"
                 onClick={menuController}
+                id="mainDashboard"
               >
                 <i className="fas fa-tachometer-alt fa-fw me-3"></i>
                 <span>Main dashboard</span>
               </button>
               <button
-                className="list-group-item list-group-item-action py-2 ripple active"
+                className="list-group-item list-group-item-action py-2 ripple"
                 onClick={menuController}
+                id="map"
               >
                 <i className="fas fa-chart-area fa-fw me-3"></i>
-                <span>Webiste traffic</span>
+                <span>Map</span>
+              </button>
+              <button
+                className="list-group-item list-group-item-action py-2 ripple"
+                onClick={menuController}
+                id="sellerMenu"
+              >
+                <i className="fas fa-shop fa-fw me-3"></i>
+                <span>Seller Menu</span>
               </button>
             </div>
           </div>
@@ -160,8 +186,18 @@ function Dashboard() {
         </nav>
       </header>
       <main style={{marginTop: 58 + "px"}}>
-        <div className="container pt-4" style={{marginLeft: 30 + "vh"}}>
-          <GoogleMaps />
+        <div
+          className="d-flex justify-content-center container pt-4"
+          style={{marginLeft: 10 + "vh"}}
+        >
+          {/*  style={{marginLeft: 30 + "vh"}} */}
+          <div id="dashboardContent"></div>
+          <div id="googleMap" hidden>
+            <GoogleMaps />
+          </div>
+          <div id="sellerContent" hidden>
+            <SellerMenu />
+          </div>
         </div>
       </main>
     </div>
