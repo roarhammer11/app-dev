@@ -1,5 +1,9 @@
 import AddFood from "./AddFood";
-function SellerMenu() {
+import RetrieveFoods from "./RetrieveFoods";
+import {Buffer} from "buffer";
+function SellerMenu(accountId) {
+  const retrievedFoods = RetrieveFoods(accountId);
+  console.log(retrievedFoods);
   const sellerOptionController = (e) => {
     const activeMenu = document
       .getElementById("sellerOptionsContainer")
@@ -49,7 +53,28 @@ function SellerMenu() {
           <AddFood />
         </div>
         <div id="foodMenuContent" hidden>
-          menu
+          {retrievedFoods.map(function (key, value) {
+            return (
+              <div className="d-flex flex-row">
+                <div
+                  className="card"
+                  style={{maxWidth: 400 + "px", maxHeight: 400 + "px"}}
+                >
+                  <img
+                    className="card-img-top m-auto"
+                    src={Buffer.from(key.food.image).toString()}
+                    alt="Food"
+                    style={{maxWidth: 200, maxHeight: 200}}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{key.food.name}</h5>
+                    <p className="card-text">{key.food.description}</p>
+                    <h6 className="card-subtitle">{key.food.price + " PHP"}</h6>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

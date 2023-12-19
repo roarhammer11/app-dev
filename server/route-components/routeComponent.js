@@ -3,7 +3,7 @@ const multer = require("multer");
 const storage = multer.memoryStorage(); // You can also set up disk storage
 const upload = multer({
   storage: storage,
-  limits: {fileSize: 5000000},
+  limits: {fileSize: 50000000},
 });
 const router = express.Router();
 const accountController = require("../controller-components/accountControllerComponent");
@@ -13,8 +13,9 @@ router.post("/login", accountController.login);
 //Accounts
 router.post("/signup", accountController.signup);
 router.post("/addFood", upload.single("image"), foodController.addFood);
+router.post("/getFoodsByOwner", foodController.getFoodsByOwner);
 router.get("/image", foodController.getImage);
-// router.post("/retrieveAccounts", accountController.retrieveAccounts);
+
 // router.patch("/disableAccount", accountController.disableAccount);
 // router.patch("/updateAccount", accountController.updateAccount);
 // router.post("/retrieveAccountById", accountController.findById);

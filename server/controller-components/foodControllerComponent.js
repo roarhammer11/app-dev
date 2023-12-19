@@ -52,6 +52,20 @@ exports.addFood = function (req, res) {
     });
   });
 };
+exports.getFoodsByOwner = function (req, res) {
+  const accountId = req.body.accountId;
+  console.log(accountId);
+  Food.getAllFoodsByOwner(accountId, function (err, foods) {
+    if (err) {
+      res.send(err);
+    }
+    res.json({
+      error: false,
+      status: 200,
+      foods: foods,
+    });
+  });
+};
 
 exports.getImage = function (req, res) {
   Food.image(function (err, image) {
@@ -61,7 +75,7 @@ exports.getImage = function (req, res) {
     res.json({
       error: false,
       status: 200,
-      data: image,
+      image: image,
     });
   });
 };

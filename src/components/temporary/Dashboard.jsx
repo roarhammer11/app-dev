@@ -195,8 +195,12 @@ function Dashboard() {
           <div id="googleMap" hidden>
             <GoogleMaps />
           </div>
-          <div id="sellerContent" hidden>
-            <SellerMenu />
+          <div
+            id="sellerContent"
+            style={{maxHeight: 100 + "%", maxWidth: 100 + "%"}}
+            hidden
+          >
+            <SellerMenu accountId={UserProfile.getAccountId()} />
           </div>
         </div>
       </main>

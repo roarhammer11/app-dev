@@ -55,6 +55,21 @@ class Food {
   //       }
   //     });
   //   }
+  static getAllFoodsByOwner(accountId, result) {
+    dbConn.query(
+      "SELECT * FROM Food WHERE accountId = ?",
+      accountId,
+      function (err, res) {
+        if (err) {
+          console.log("error: ", err);
+          result(err, null);
+        } else {
+          console.log(res);
+          result(null, res);
+        }
+      }
+    );
+  }
   static image(result) {
     dbConn.query(
       "SELECT image FROM Food WHERE foodId = '20'",
@@ -63,6 +78,7 @@ class Food {
           console.log("error: ", err);
           result(err, null);
         } else {
+          console.log(res);
           result(null, res);
         }
       }

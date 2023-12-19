@@ -16,16 +16,16 @@ function AddFood() {
     // console.log(formValue);
     addFoodToServer(formValue);
 
-    // setFormValue({
-    //   name: "",
-    //   price: "",
-    //   description: "",
-    //   image: "",
-    //   accountId: UserProfile.getAccountId(),
-    // });
-    // // var image = document.getElementById("output");
-    // // image.removeAttribute("src");
-    // document.getElementById("outputContainer").hidden = true;
+    setFormValue({
+      name: "",
+      price: "",
+      description: "",
+      image: "",
+      accountId: UserProfile.getAccountId(),
+    });
+    // var image = document.getElementById("output");
+    // image.removeAttribute("src");
+    document.getElementById("outputContainer").hidden = true;
   };
 
   const onChange = (e) => {
@@ -63,43 +63,43 @@ function AddFood() {
         "Content-Type": "application/json",
       },
     });
-    // var responseData = await response.json();
-    // console.log(responseData);
-    // if (responseData.success === false) {
-    //   alert("Unexpected error in adding food.");
-    // } else {
-    //   alert(responseData.message);
-    // }
-  }
-  const handleTestSubmit = (event) => {
-    event.preventDefault();
-    test();
-  };
-  async function test() {
-    var response = await fetch("/api/image", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
     var responseData = await response.json();
     console.log(responseData);
     if (responseData.success === false) {
       alert("Unexpected error in adding food.");
     } else {
-      // var imageData = new Blob([responseData.data[0].image], {type: "image/*"});
-      // imageData.type = "image/*";
-      // console.log(imageData);
-      var imageData = responseData.data[0].image;
-      var image = Buffer.from(imageData).toString();
-      console.log(image);
-      // var image = new Blob([imageData.data], {
-      //   type: imageData.type,
-      // });
-      // console.log(image);
-      document.getElementById("test").src = image;
+      alert(responseData.message);
     }
   }
+  // const handleTestSubmit = (event) => {
+  //   event.preventDefault();
+  //   test();
+  // };
+  // async function test() {
+  //   var response = await fetch("/api/image", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   var responseData = await response.json();
+  //   console.log(responseData);
+  //   if (responseData.success === false) {
+  //     alert("Unexpected error in adding food.");
+  //   } else {
+  //     // var imageData = new Blob([responseData.data[0].image], {type: "image/*"});
+  //     // imageData.type = "image/*";
+  //     // console.log(imageData);
+  //     var imageData = responseData.data[0].image;
+  //     var image = Buffer.from(imageData).toString();
+  //     console.log(image);
+  //     // var image = new Blob([imageData.data], {
+  //     //   type: imageData.type,
+  //     // });
+  //     // console.log(image);
+  //     document.getElementById("test").src = image;
+  //   }
+  // }
   return (
     <div>
       <form onSubmit={handleFoodSubmit} id="foodForm">
@@ -194,12 +194,12 @@ function AddFood() {
           Submit
         </MDBBtn>
       </form>
-      <form onSubmit={handleTestSubmit} id="testForm">
+      {/* <form onSubmit={handleTestSubmit} id="testForm">
         <MDBBtn className="mb-4 w-100 mt-3" type="submit">
           Submit
         </MDBBtn>
       </form>
-      <img id="test" alt="" width={200} height={200}></img>
+      <img id="test" alt="" width={200} height={200}></img> */}
     </div>
   );
 }
