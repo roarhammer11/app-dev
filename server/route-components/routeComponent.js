@@ -1,11 +1,19 @@
 const express = require("express");
+const multer = require("multer");
+const storage = multer.memoryStorage(); // You can also set up disk storage
+const upload = multer({
+  storage: storage,
+  limits: {fileSize: 5000000},
+});
 const router = express.Router();
 const accountController = require("../controller-components/accountControllerComponent");
-// const scheduleController = require("../controller-components/scheduleControllerComponent");
+const foodController = require("../controller-components/foodControllerComponent");
 // const appointmentController = require("../controller-components/appointmentControllerComponent");
 router.post("/login", accountController.login);
 //Accounts
 router.post("/signup", accountController.signup);
+router.post("/addFood", upload.single("image"), foodController.addFood);
+router.get("/image", foodController.getImage);
 // router.post("/retrieveAccounts", accountController.retrieveAccounts);
 // router.patch("/disableAccount", accountController.disableAccount);
 // router.patch("/updateAccount", accountController.updateAccount);

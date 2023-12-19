@@ -7,12 +7,22 @@ var UserProfile = (function () {
     sessionStorage.setItem("userType", userType);
   };
 
+  const setAccountId = (accountId) => {
+    sessionStorage.setItem("accountId", accountId);
+  };
+
   const getName = () => {
     return sessionStorage.getItem("name");
   };
+
   const getUserType = () => {
     return sessionStorage.getItem("userType");
   };
+
+  const getAccountId = () => {
+    return sessionStorage.getItem("accountId");
+  };
+
   const clearSession = function () {
     sessionStorage.clear();
   };
@@ -20,8 +30,10 @@ var UserProfile = (function () {
   return {
     setName: setName,
     setUsertype: setUsertype,
+    setAccountId: setAccountId,
     getName: getName,
     getUserType: getUserType,
+    getAccountId: getAccountId,
     clearSession: clearSession,
   };
 })();

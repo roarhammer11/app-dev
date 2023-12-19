@@ -1,3 +1,4 @@
+import AddFood from "./AddFood";
 function SellerMenu() {
   const sellerOptionController = (e) => {
     const activeMenu = document
@@ -43,8 +44,10 @@ function SellerMenu() {
           <span>Food Menu</span>
         </button>
       </div>
-      <div>
-        <div id="addFoodContent">food content</div>
+      <div className="mt-5">
+        <div id="addFoodContent">
+          <AddFood />
+        </div>
         <div id="foodMenuContent" hidden>
           menu
         </div>

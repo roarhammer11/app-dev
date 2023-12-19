@@ -9,10 +9,10 @@ import {
 } from "mdb-react-ui-kit";
 function Login({justifyActive}) {
   const [formValue, setFormValue] = useState({email: "", password: ""});
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
     console.log(formValue);
-    login(formValue);
+    await login(formValue);
   };
   const onChange = (e) => {
     setFormValue({...formValue, [e.target.name]: e.target.value});
@@ -34,6 +34,7 @@ function Login({justifyActive}) {
       alert("Welcome Back " + responseData.name);
       UserProfile.setName(responseData.name);
       UserProfile.setUsertype(responseData.userType);
+      UserProfile.setAccountId(responseData.accountId);
       window.history.pushState(null, null, window.location.href + "dashboard");
       window.location.reload();
     }

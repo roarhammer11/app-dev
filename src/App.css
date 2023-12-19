@@ -92,3 +92,7 @@
   width: 240px;
   z-index: 600;
 }
+
+.image-button:hover{
+  cursor: pointer;
+}
