@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import {MDBBtn, MDBInput} from "mdb-react-ui-kit";
 import UserProfile from "./UserInfoWrapper";
-import {Buffer} from "buffer";
-function AddFood() {
+function AddFood(props) {
   const [formValue, setFormValue] = useState({
     name: "",
     price: "",
@@ -23,9 +22,8 @@ function AddFood() {
       image: "",
       accountId: UserProfile.getAccountId(),
     });
-    // var image = document.getElementById("output");
-    // image.removeAttribute("src");
     document.getElementById("outputContainer").hidden = true;
+    props.func("submission");
   };
 
   const onChange = (e) => {
@@ -36,11 +34,6 @@ function AddFood() {
     var image = document.getElementById("output");
     const imageFile = e.target.files[0];
     image.src = URL.createObjectURL(imageFile);
-
-    // const imageFiledata = await fileToBlob(imageFile);
-    // console.log(imageFile);
-    // console.log(imageFiledata);
-    // formValue.image = imageFiledata;
     let reader = new FileReader();
     reader.readAsDataURL(imageFile);
     reader.onload = function (e) {
@@ -71,35 +64,7 @@ function AddFood() {
       alert(responseData.message);
     }
   }
-  // const handleTestSubmit = (event) => {
-  //   event.preventDefault();
-  //   test();
-  // };
-  // async function test() {
-  //   var response = await fetch("/api/image", {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   var responseData = await response.json();
-  //   console.log(responseData);
-  //   if (responseData.success === false) {
-  //     alert("Unexpected error in adding food.");
-  //   } else {
-  //     // var imageData = new Blob([responseData.data[0].image], {type: "image/*"});
-  //     // imageData.type = "image/*";
-  //     // console.log(imageData);
-  //     var imageData = responseData.data[0].image;
-  //     var image = Buffer.from(imageData).toString();
-  //     console.log(image);
-  //     // var image = new Blob([imageData.data], {
-  //     //   type: imageData.type,
-  //     // });
-  //     // console.log(image);
-  //     document.getElementById("test").src = image;
-  //   }
-  // }
+
   return (
     <div>
       <form onSubmit={handleFoodSubmit} id="foodForm">
@@ -144,18 +109,6 @@ function AddFood() {
             </label>
           </div>
 
-          {/* <div hidden>
-            <MDBInput
-              value={formValue.image}
-              onChange={onChange}
-              name="image"
-              wrapperClass="mb-4"
-              id="image"
-              type="file"
-              accept="image/*"
-            />
-          </div> */}
-
           <div hidden>
             <MDBInput
               onChange={loadImageFile}
@@ -177,29 +130,10 @@ function AddFood() {
           </div>
         </div>
 
-        {/* <div className="d-flex">
-          <label class="form-label" for="customFile">
-            Image
-          </label>
-          <input
-            type="file"
-            class="form-control"
-            id="image"
-            value={formValue.image}
-            onChange={onChange}
-          />
-        </div> */}
-
         <MDBBtn className="mb-4 w-100 mt-3" type="submit">
           Submit
         </MDBBtn>
       </form>
-      {/* <form onSubmit={handleTestSubmit} id="testForm">
-        <MDBBtn className="mb-4 w-100 mt-3" type="submit">
-          Submit
-        </MDBBtn>
-      </form>
-      <img id="test" alt="" width={200} height={200}></img> */}
     </div>
   );
 }

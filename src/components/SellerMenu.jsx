@@ -1,9 +1,83 @@
 import AddFood from "./AddFood";
-import RetrieveFoods from "./RetrieveFoods";
+import {useState, useEffect, useCallback, useRef} from "react";
 import {Buffer} from "buffer";
 function SellerMenu(accountId) {
-  const retrievedFoods = RetrieveFoods(accountId);
-  console.log(retrievedFoods);
+  const dataFetchedRef = useRef(false);
+  const [food, setFood] = useState([]);
+  const [foodDisplay, setFoodDisplay] = useState([]);
+  const test = useCallback(() => {
+    return food.length !== 0 ? (
+      food.map(function (key, value) {
+        return (
+          <div
+            className="card"
+            style={{
+              width: 350 + "px",
+              height: 500 + "px",
+              margin: 1 + "rem",
+            }}
+          >
+            <div className="mt-5">
+              <img
+                className="card-img-top m-auto"
+                src={Buffer.from(key.foodRetrieved.image).toString()}
+                alt="Food"
+                style={{width: 200, height: 200, marginTop: 2 + "rem"}}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{key.foodRetrieved.name}</h5>
+                <p className="card-text">{key.foodRetrieved.description}</p>
+                <h6 className="card-subtitle">
+                  {key.foodRetrieved.price + " PHP"}
+                </h6>
+              </div>
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <div></div>
+    );
+  }, [food]);
+  const getFoods = useCallback(
+    async (accountId) => {
+      var response = await fetch("/api/getFoodsByOwner", {
+        method: "POST",
+        body: JSON.stringify(accountId),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      var responseData = await response.json();
+      if (responseData.success === false) {
+        alert("Unexpected error in retrieving the foods data.");
+      } else {
+        const foods = responseData.foods;
+        console.log(foods);
+        for (var x in foods) {
+          const foodRetrieved = foods[x];
+          setFood((food) => [...food, {foodRetrieved}]);
+        }
+      }
+      setFoodDisplay(test());
+    },
+    [test]
+  );
+  useEffect(() => {
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+    getFoods(accountId);
+  }, [food, accountId, getFoods]);
+
+  const callback = (data) => {
+    console.log(data);
+    getFoods(accountId);
+    const parent = document.getElementById("foodDisplay");
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+
   const sellerOptionController = (e) => {
     const activeMenu = document
       .getElementById("sellerOptionsContainer")
@@ -22,6 +96,8 @@ function SellerMenu(accountId) {
       } else if (menuToBeActivated.id === "foodMenuButton") {
         foodMenuContent.hidden = false;
         addFoodContent.hidden = true;
+        console.log(food);
+        setFoodDisplay(test());
       }
     }
   };
@@ -50,34 +126,14 @@ function SellerMenu(accountId) {
       </div>
       <div className="mt-5">
         <div id="addFoodContent">
-          <AddFood />
+          <AddFood func={callback} />
         </div>
         <div id="foodMenuContent" hidden>
-          <div className="d-flex flex-row ">
-            {retrievedFoods.map(function (key, value) {
-              return (
-                <div
-                  className="card"
-                  style={{
-                    width: 400 + "px",
-                    height: 400 + "px",
-                    margin: 1 + "rem",
-                  }}
-                >
-                  <img
-                    className="card-img-top m-auto"
-                    src={Buffer.from(key.food.image).toString()}
-                    alt="Food"
-                    style={{width: 200, height: 200}}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{key.food.name}</h5>
-                    <p className="card-text">{key.food.description}</p>
-                    <h6 className="card-subtitle">{key.food.price + " PHP"}</h6>
-                  </div>
-                </div>
-              );
-            })}
+          <div
+            className="d-flex flex-row flex-wrap hideScrollbar"
+            id="foodDisplay"
+          >
+            {foodDisplay}
           </div>
         </div>
       </div>
