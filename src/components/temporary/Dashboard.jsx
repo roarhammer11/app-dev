@@ -187,7 +187,7 @@ function Dashboard() {
       </header>
       <main style={{marginTop: 58 + "px"}}>
         <div
-          className="d-flex justify-content-center container pt-4"
+          className="d-flex justify-content-center  pt-4"
           style={{marginLeft: 10 + "vh"}}
         >
           {/*  style={{marginLeft: 30 + "vh"}} */}
@@ -197,7 +197,7 @@ function Dashboard() {
           </div>
           <div
             id="sellerContent"
-            style={{maxHeight: 100 + "%", maxWidth: 100 + "%"}}
+            style={{height: 100 + "%", width: 100 + "%"}}
             hidden
           >
             <SellerMenu accountId={UserProfile.getAccountId()} />

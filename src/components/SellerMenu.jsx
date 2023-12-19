@@ -29,7 +29,7 @@ function SellerMenu(accountId) {
   return (
     <div>
       <div
-        className="d-flex flex-row list-group list-group-flush"
+        className="d-flex flex-row list-group list-group-flush m-auto"
         id="sellerOptionsContainer"
         style={{width: 50 + "rem"}}
       >
@@ -53,18 +53,22 @@ function SellerMenu(accountId) {
           <AddFood />
         </div>
         <div id="foodMenuContent" hidden>
-          {retrievedFoods.map(function (key, value) {
-            return (
-              <div className="d-flex flex-row">
+          <div className="d-flex flex-row ">
+            {retrievedFoods.map(function (key, value) {
+              return (
                 <div
                   className="card"
-                  style={{maxWidth: 400 + "px", maxHeight: 400 + "px"}}
+                  style={{
+                    width: 400 + "px",
+                    height: 400 + "px",
+                    margin: 1 + "rem",
+                  }}
                 >
                   <img
                     className="card-img-top m-auto"
                     src={Buffer.from(key.food.image).toString()}
                     alt="Food"
-                    style={{maxWidth: 200, maxHeight: 200}}
+                    style={{width: 200, height: 200}}
                   />
                   <div className="card-body">
                     <h5 className="card-title">{key.food.name}</h5>
@@ -72,9 +76,9 @@ function SellerMenu(accountId) {
                     <h6 className="card-subtitle">{key.food.price + " PHP"}</h6>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
