@@ -5,7 +5,7 @@ function SellerMenu(accountId) {
   const dataFetchedRef = useRef(false);
   const [food, setFood] = useState([]);
   const [foodDisplay, setFoodDisplay] = useState([]);
-  const test = useCallback(() => {
+  const createCards = useCallback(() => {
     return food.length !== 0 ? (
       food.map(function (key, value) {
         return (
@@ -20,7 +20,12 @@ function SellerMenu(accountId) {
             <div className="mt-5">
               <img
                 className="card-img-top m-auto"
-                src={Buffer.from(key.foodRetrieved.image).toString()}
+                // src={Buffer.from(key.foodRetrieved.image).toString()}
+                src={
+                  key.foodRetrieved.image.data.length !== 0
+                    ? Buffer.from(key.foodRetrieved.image).toString()
+                    : "https://placehold.co/200x200"
+                }
                 alt="Food"
                 style={{width: 200, height: 200, marginTop: 2 + "rem"}}
               />
@@ -39,30 +44,27 @@ function SellerMenu(accountId) {
       <div></div>
     );
   }, [food]);
-  const getFoods = useCallback(
-    async (accountId) => {
-      var response = await fetch("/api/getFoodsByOwner", {
-        method: "POST",
-        body: JSON.stringify(accountId),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      var responseData = await response.json();
-      if (responseData.success === false) {
-        alert("Unexpected error in retrieving the foods data.");
-      } else {
-        const foods = responseData.foods;
-        console.log(foods);
-        for (var x in foods) {
-          const foodRetrieved = foods[x];
-          setFood((food) => [...food, {foodRetrieved}]);
-        }
+  const getFoods = useCallback(async (accountId) => {
+    var response = await fetch("/api/getFoodsByOwner", {
+      method: "POST",
+      body: JSON.stringify(accountId),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    var responseData = await response.json();
+    if (responseData.success === false) {
+      alert("Unexpected error in retrieving the foods data.");
+    } else {
+      const foods = responseData.foods;
+      console.log(foods);
+      for (var x in foods) {
+        const foodRetrieved = foods[x];
+        setFood((food) => [...food, {foodRetrieved}]);
       }
-      setFoodDisplay(test());
-    },
-    [test]
-  );
+    }
+  }, []);
+
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
@@ -94,10 +96,12 @@ function SellerMenu(accountId) {
         addFoodContent.hidden = false;
         foodMenuContent.hidden = true;
       } else if (menuToBeActivated.id === "foodMenuButton") {
+        const parent = document.getElementById("foodDisplay");
+        if (parent.firstChild === null) {
+          setFoodDisplay(createCards());
+        }
         foodMenuContent.hidden = false;
         addFoodContent.hidden = true;
-        console.log(food);
-        setFoodDisplay(test());
       }
     }
   };
