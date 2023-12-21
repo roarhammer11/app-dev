@@ -3,6 +3,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import UserProfile from "./UserInfoWrapper";
 import Home from "./Home";
 import SellerMenu from "./SellerMenu";
+import Suggestions from "./Suggestions";
+import "../App.css";
 function Dashboard() {
   const clearSession = () => {
     UserProfile.clearSession();
@@ -11,25 +13,34 @@ function Dashboard() {
   const menuController = (e) => {
     const activeMenu = document.getElementsByClassName("active")[0];
     const menuToBeActivated = e.currentTarget;
-    const dashboardContent = document.getElementById("dashboardContent");
+    const home = document.getElementById("home");
     const map = document.getElementById("googleMap");
     const sellerMenu = document.getElementById("sellerContent");
+    const suggestions = document.getElementById("suggestionsContent");
     if (activeMenu !== menuToBeActivated) {
       activeMenu.classList.remove("active");
       menuToBeActivated.classList.add("active");
       console.log(menuToBeActivated.id);
       if (menuToBeActivated.id === "mainDashboard") {
-        dashboardContent.hidden = false;
+        home.hidden = false;
         map.hidden = true;
         sellerMenu.hidden = true;
+        suggestions.hidden = true;
       } else if (menuToBeActivated.id === "map") {
         map.hidden = false;
-        dashboardContent.hidden = true;
+        home.hidden = true;
         sellerMenu.hidden = true;
+        suggestions.hidden = true;
       } else if (menuToBeActivated.id === "sellerMenu") {
         sellerMenu.hidden = false;
         map.hidden = true;
-        dashboardContent.hidden = true;
+        home.hidden = true;
+        suggestions.hidden = true;
+      } else if (menuToBeActivated.id === "suggestionsMenu") {
+        suggestions.hidden = false;
+        map.hidden = true;
+        sellerMenu.hidden = true;
+        home.hidden = true;
       }
     }
   };
@@ -70,6 +81,14 @@ function Dashboard() {
               >
                 <i className="fas fa-shop fa-fw me-3"></i>
                 <span>Seller Menu</span>
+              </button>
+              <button
+                className="list-group-item list-group-item-action py-2 ripple"
+                onClick={menuController}
+                id="suggestionsMenu"
+              >
+                <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
+                <span>Suggestions</span>
               </button>
             </div>
           </div>
@@ -186,6 +205,7 @@ function Dashboard() {
           </div>
         </nav>
       </header>
+
       <main
         style={{marginTop: 58 + "px", marginLeft: 5 + "rem", width: 100 + "%"}}
       >
@@ -193,19 +213,26 @@ function Dashboard() {
           className="d-flex justify-content-center  pt-4"
           style={{marginLeft: 10 + "vh"}}
         >
-          {/*  style={{marginLeft: 30 + "vh"}} */}
-          <div id="dashboardContent">
-            <Home />
-          </div>
-          <div id="googleMap" hidden>
-            <GoogleMaps />
-          </div>
-          <div
-            id="sellerContent"
-            style={{height: 100 + "%", width: 100 + "%"}}
-            hidden
-          >
-            <SellerMenu accountId={UserProfile.getAccountId()} />
+          <div className="d-flex flex-column bd-highlight mb-3">
+            <div id="home">
+              <Home userName={UserProfile.getName()} />
+            </div>
+
+            <div id="googleMap" hidden>
+              <GoogleMaps />
+            </div>
+
+            <div
+              id="sellerContent"
+              style={{height: 100 + "%", width: 100 + "%"}}
+              hidden
+            >
+              <SellerMenu accountId={UserProfile.getAccountId()} />
+            </div>
+
+            <div id="suggestionsContent" hidden>
+              <Suggestions />
+            </div>
           </div>
         </div>
       </main>

@@ -1,7 +1,7 @@
 import AddFood from "./AddFood";
 import {useState, useEffect, useCallback, useRef} from "react";
 import {Buffer} from "buffer";
-function Home() {
+function Home(props) {
   const dataFetchedRef = useRef(false);
   const [food, setFood] = useState([]);
   const [foodDisplay, setFoodDisplay] = useState([]);
@@ -71,7 +71,44 @@ function Home() {
     getFoods();
   }, [food, getFoods]);
 
-  return <div></div>;
+  return (
+    <div>
+      <div
+        className="d-flex justify-content-between align-items-center"
+        style={{padding: "15px"}}
+      >
+        <h1 style={{marginInlineStart: 100, padding: 15}}>
+          Hello, {props.userName}
+        </h1>
+        <form
+          className="input-group w-auto my-auto"
+          style={{display: "flex", flexShrink: 0, minWidth: "300px"}}
+        >
+          <input
+            autoComplete="off"
+            type="search"
+            className="form-control rounded"
+            placeholder="What do you feel like eating today?"
+            style={{minWidth: 300 + "px"}}
+          />
+          <span className="input-group-text border-0">
+            <i className="fas fa-search"></i>
+          </span>
+        </form>
+      </div>
+
+      <div>
+        <h3>Get Discount Voucher Up To 20% Off!</h3>
+      </div>
+      <div>
+        <h3>Category</h3>
+      </div>
+
+      <div>
+        <h3>Recent orders</h3>
+      </div>
+    </div>
+  );
 }
 
 export default Home;
