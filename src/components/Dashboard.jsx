@@ -1,7 +1,8 @@
-import GoogleMaps from "../Map";
+import GoogleMaps from "./Map";
 import Dropdown from "react-bootstrap/Dropdown";
-import UserProfile from "../UserInfoWrapper";
-import SellerMenu from "../SellerMenu";
+import UserProfile from "./UserInfoWrapper";
+import Home from "./Home";
+import SellerMenu from "./SellerMenu";
 function Dashboard() {
   const clearSession = () => {
     UserProfile.clearSession();
@@ -185,13 +186,17 @@ function Dashboard() {
           </div>
         </nav>
       </header>
-      <main style={{marginTop: 58 + "px"}}>
+      <main
+        style={{marginTop: 58 + "px", marginLeft: 5 + "rem", width: 100 + "%"}}
+      >
         <div
           className="d-flex justify-content-center  pt-4"
           style={{marginLeft: 10 + "vh"}}
         >
           {/*  style={{marginLeft: 30 + "vh"}} */}
-          <div id="dashboardContent"></div>
+          <div id="dashboardContent">
+            <Home />
+          </div>
           <div id="googleMap" hidden>
             <GoogleMaps />
           </div>
