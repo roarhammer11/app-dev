@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {MDBBtn, MDBInput} from "mdb-react-ui-kit";
 import UserProfile from "./UserInfoWrapper";
+
 function AddFood(props) {
   const [formValue, setFormValue] = useState({
     name: "",

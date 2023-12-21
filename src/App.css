@@ -1,4 +1,4 @@
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   display: none;
 }
 
@@ -104,4 +104,4 @@ body {
 
 .image-button:hover {
   cursor: pointer;
-}
+} 
