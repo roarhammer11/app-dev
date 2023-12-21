@@ -5,7 +5,19 @@ import Home from "./Home";
 import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
 import "../App.css";
+import {UsbRounded} from "@mui/icons-material";
 function Dashboard() {
+  // const sellerMenuController = () => {
+  //   if (UserProfile.getUserType() === "User") {
+  //     const sellerContent = document.getElementById("sellerContent");
+  //     const sellerMenu = document.getElementById("sellerMenu");
+  //     sellerMenu.hidden = true;
+  //     if (sellerContent && sellerMenu) {
+  //       sellerContent.remove();
+  //     }
+  //   }
+  // };
+
   const clearSession = () => {
     UserProfile.clearSession();
   };
@@ -24,12 +36,16 @@ function Dashboard() {
       if (menuToBeActivated.id === "mainDashboard") {
         home.hidden = false;
         map.hidden = true;
-        sellerMenu.hidden = true;
+        if (sellerMenu) {
+          sellerMenu.hidden = true;
+        }
         suggestions.hidden = true;
       } else if (menuToBeActivated.id === "map") {
         map.hidden = false;
         home.hidden = true;
-        sellerMenu.hidden = true;
+        if (sellerMenu) {
+          sellerMenu.hidden = true;
+        }
         suggestions.hidden = true;
       } else if (menuToBeActivated.id === "sellerMenu") {
         sellerMenu.hidden = false;
@@ -39,12 +55,51 @@ function Dashboard() {
       } else if (menuToBeActivated.id === "suggestionsMenu") {
         suggestions.hidden = false;
         map.hidden = true;
-        sellerMenu.hidden = true;
+        if (sellerMenu) {
+          sellerMenu.hidden = true;
+        }
         home.hidden = true;
       }
     }
   };
-
+  // if (UserProfile.getUserType() === "User") {
+  //   document
+  //     .getElementById("sellerContent")
+  //     .addEventListener("load", function () {
+  //       document.getElementById("sellerContent").remove();
+  //     });
+  //   document.getElementById("sellerMenu").addEventListener("load", function () {
+  //     document.getElementById("sellerMenu").hidden = true;
+  //   });
+  // }
+  const DisplaySellerMenu = () => {
+    return UserProfile.getUserType() === "Seller" ? (
+      <button
+        className="list-group-item list-group-item-action py-2 ripple"
+        onClick={menuController}
+        id="sellerMenu"
+      >
+        <i className="fas fa-shop fa-fw me-3"></i>
+        <span>Seller Menu</span>
+      </button>
+    ) : (
+      <div></div>
+    );
+  };
+  const DisplaySellerContent = () => {
+    return UserProfile.getUserType() === "Seller" ? (
+      <div
+        id="sellerContent"
+        style={{height: 100 + "%", width: 100 + "%"}}
+        // onLoad={sellerMenuController}
+        hidden
+      >
+        <SellerMenu accountId={UserProfile.getAccountId()} />
+      </div>
+    ) : (
+      <div></div>
+    );
+  };
   return sessionStorage.length > 0 ? (
     <div>
       <header>
@@ -74,14 +129,7 @@ function Dashboard() {
                 <i className="fas fa-chart-area fa-fw me-3"></i>
                 <span>Map</span>
               </button>
-              <button
-                className="list-group-item list-group-item-action py-2 ripple"
-                onClick={menuController}
-                id="sellerMenu"
-              >
-                <i className="fas fa-shop fa-fw me-3"></i>
-                <span>Seller Menu</span>
-              </button>
+              <DisplaySellerMenu />
               <button
                 className="list-group-item list-group-item-action py-2 ripple"
                 onClick={menuController}
@@ -147,10 +195,7 @@ function Dashboard() {
                   }}
                 >
                   <i className="fas fa-bell" style={{color: "black"}} />
-                  <span
-                    className=" translate-middle badge rounded-pill bg-danger"
-                    // style={{marginLeft: 10}}
-                  >
+                  <span className=" translate-middle badge rounded-pill bg-danger">
                     1
                   </span>
                 </Dropdown.Toggle>
@@ -221,15 +266,7 @@ function Dashboard() {
             <div id="googleMap" hidden>
               <GoogleMaps />
             </div>
-
-            <div
-              id="sellerContent"
-              style={{height: 100 + "%", width: 100 + "%"}}
-              hidden
-            >
-              <SellerMenu accountId={UserProfile.getAccountId()} />
-            </div>
-
+            <DisplaySellerContent />
             <div id="suggestionsContent" hidden>
               <Suggestions />
             </div>

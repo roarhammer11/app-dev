@@ -5,49 +5,7 @@ function SellerMenu(accountId) {
   const dataFetchedRef = useRef(false);
   const [food, setFood] = useState([]);
   const [foodDisplay, setFoodDisplay] = useState([]);
-  // const createCards = useCallback(() => {
-  //   console.log("hehe");
-  //   return food.length !== 0 ? (
-  //     food.map(function (key, value) {
-  //       return (
-  //         <div
-  //           className="card"
-  //           style={{
-  //             width: 350 + "px",
-  //             height: 500 + "px",
-  //             margin: 1 + "rem",
-  //           }}
-  //           key={key.foodRetrieved.foodId}
-  //         >
-  //           <div className="mt-5">
-  //             <img
-  //               className="card-img-top m-auto"
-  //               // src={Buffer.from(key.foodRetrieved.image).toString()}
-  //               src={
-  //                 key.foodRetrieved.image.data.length !== 0
-  //                   ? Buffer.from(key.foodRetrieved.image).toString()
-  //                   : "https://placehold.co/200x200"
-  //               }
-  //               alt="Food"
-  //               style={{width: 200, height: 200, marginTop: 2 + "rem"}}
-  //             />
-  //             <div className="card-body">
-  //               <h5 className="card-title">{key.foodRetrieved.name}</h5>
-  //               <p className="card-text">{key.foodRetrieved.description}</p>
-  //               <h6 className="card-subtitle">
-  //                 {key.foodRetrieved.price + " PHP"}
-  //               </h6>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       );
-  //     })
-  //   ) : (
-  //     <div className="m-auto" id="noFood">
-  //       No food available for this vendor.
-  //     </div>
-  //   );
-  // }, [food]);
+
   const createCards = useCallback(() => {
     console.log("hehe");
     if (document.getElementById("noFood") && food.length !== 0) {
@@ -102,7 +60,6 @@ function SellerMenu(accountId) {
       alert("Unexpected error in retrieving the foods data.");
     } else {
       const foods = responseData.foods;
-      console.log(foods);
       for (var x in foods) {
         const foodRetrieved = foods[x];
         setFood((food) => [...food, {foodRetrieved}]);
@@ -117,10 +74,8 @@ function SellerMenu(accountId) {
   }, [food, accountId, getFoods]);
 
   const callback = (data) => {
-    console.log(data);
     getFoods(accountId);
     const parent = document.getElementById("foodDisplay");
-    // console.log(parent);
     while (parent.firstChild) {
       console.log(parent.firstChild);
       parent.removeChild(parent.firstChild); //Removes all food to update food from database
@@ -131,7 +86,6 @@ function SellerMenu(accountId) {
     const activeMenu = document
       .getElementById("sellerOptionsContainer")
       .getElementsByClassName("active")[0];
-    console.log(activeMenu);
     const menuToBeActivated = e.currentTarget;
     const addFoodContent = document.getElementById("addFoodContent");
     const foodMenuContent = document.getElementById("foodMenuContent");

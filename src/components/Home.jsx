@@ -20,7 +20,6 @@ function Home(props) {
             <div className="mt-5">
               <img
                 className="card-img-top m-auto"
-                // src={Buffer.from(key.foodRetrieved.image).toString()}
                 src={
                   key.foodRetrieved.image.data.length !== 0
                     ? Buffer.from(key.foodRetrieved.image).toString()
@@ -56,12 +55,6 @@ function Home(props) {
       alert("Unexpected error in retrieving the foods data.");
     } else {
       console.log(responseData);
-      //   const foods = responseData.foods;
-      //   console.log(foods);
-      //   for (var x in foods) {
-      //     const foodRetrieved = foods[x];
-      //     setFood((food) => [...food, {foodRetrieved}]);
-      //   }
     }
   }, []);
 
@@ -103,7 +96,9 @@ function Home(props) {
       <div>
         <h3>Category</h3>
       </div>
-
+      <div>
+        <h3>Store</h3>
+      </div>
       <div>
         <h3>Recent orders</h3>
       </div>
