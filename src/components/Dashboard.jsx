@@ -233,16 +233,16 @@ function Dashboard() {
         </nav>
       </header>
 
-      <main style={{marginTop: "60px"}}>
+      <main style={{marginTop: "70px"}}>
         <div style={{paddingLeft: "10vh"}} id="dashboardContent">
           <div id="home">
             <div
               className="d-flex justify-content-between align-items-center"
               style={{padding: "15px"}}
             >
-              <h2 style={{marginInlineStart: 100, padding: 15}}>
-                Hello, {UserProfile.getName()}
-              </h2>
+              <h3 style={{marginInlineStart: 100, padding: 15}}>
+                Hello, {UserProfile.getName()}!
+              </h3>
               <form
                 className="input-group w-auto my-auto"
                 style={{display: "flex", flexShrink: 0, minWidth: "300px"}}
@@ -261,12 +261,6 @@ function Dashboard() {
             </div>
 
             <div>
-              <h3>Take a look around USC-TC!</h3>
-              <p>
-                Learn about the go to grubs near the University of San Carlos
-                Talamban Campus. Take a look at our website!
-              </p>
-
               <Carousel>
                 <Carousel.Item>
                   <img className="img-fluid" src={chicken} alt="24 Chicken" style={{maxHeight: '500px'}}/>
@@ -291,10 +285,16 @@ function Dashboard() {
                 </Carousel.Item>
               </Carousel>
 
+              <h3 style={{padding: 20}}>Take a look around USC-TC!</h3>
+              <p>
+                Learn about the go to grubs near the University of San Carlos
+                Talamban Campus. Take a look at our website!
+              </p>
+
             </div>
 
             <div>
-              <div id="foodCategory" style={{flexDirection: "column", alignContent: "start",marginInlineStart: 100, padding: 50}}>
+              <div id="foodCategory" style={{flexDirection: "column", alignContent: "start",marginInlineStart: 100, padding: 40}}>
                 <h3 style={{display: "flex"}}>Category</h3>
                 <CardGroup>
                   <Card style={{margin: 15}}>
