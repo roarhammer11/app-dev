@@ -5,9 +5,17 @@ import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
 import Settings from "./Settings";
 import Carousel from "react-bootstrap/Carousel";
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
+import Button from 'react-bootstrap/Button';
+
 import chicken from '../assets/chicken.png'
 import wingers from '../assets/wingers.png'
 import topokkiman from '../assets/topokkiman.png'
+import low from '../assets/low.png'
+import med from '../assets/med.png'
+import high from '../assets/high.png'
+
 import "../App.css";
 function Dashboard() {
   const clearSession = () => {
@@ -300,16 +308,50 @@ function Dashboard() {
               </Carousel>
 
             </div>
-            <div id="foodCategory">
-              <h3>Category</h3>
-            </div>
 
-            <div id="recentOrders">
-              <h3>Recent orders</h3>
+            <div>
+              <div id="foodCategory" style={{flexDirection: "column", alignContent: "start",marginInlineStart: 100, padding: 50}}>
+                <h3 style={{display: "flex"}}>Category</h3>
+                <CardGroup>
+                  <Card style={{margin: 15}}>
+                    <img src={low} alt="Low Price" />
+                    <Card.Body>
+                      <Card.Title>$</Card.Title>
+                      <Card.Text>
+                        Strict budget? View your options here.
+                      </Card.Text>
+                    </Card.Body>
+                    <Button variant="outline-primary" size="sm">Go</Button>
+                  </Card>
+                  <Card style={{margin: 15}}>
+                  <img src={med} alt="Medium Price" />
+                    <Card.Body>
+                      <Card.Title>$$</Card.Title>
+                      <Card.Text>
+                        Keeping it safe? View your options here.
+                      </Card.Text>
+                    </Card.Body>
+                    <Button variant="outline-primary" size="sm">Go</Button>
+                  </Card>
+                  <Card style={{margin: 15}}>
+                  <img src={high} alt="High Price" />
+                    <Card.Body>
+                      <Card.Title>$$$</Card.Title>
+                      <Card.Text>
+                        Want to splurge? View your options here.
+                      </Card.Text>
+                    </Card.Body>
+                    <Button variant="outline-primary" size="sm">Go</Button>
+                  </Card>
+                </CardGroup>
+              </div>
+
+              <div id="recentOrders" style={{display: "flex", marginInlineStart: 100, padding: 30}}>
+                <h3>Recent orders</h3>
+              </div>
             </div>
-            <div />
+            
           </div>
-
           <div style={{textAlign: "left", marginInlineStart: 100, padding: 15}}>
             <div id="googleMap" hidden>
               <GoogleMaps />
