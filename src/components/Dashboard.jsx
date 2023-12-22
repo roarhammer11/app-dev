@@ -4,6 +4,10 @@ import UserProfile from "./UserInfoWrapper";
 import Home from "./Home";
 import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
+
+import Carousel from 'react-bootstrap/Carousel';
+import ExampleCarouselImage from './sample.png';
+
 import '../App.css';
 function Dashboard() {
   const clearSession = () => {
@@ -14,6 +18,7 @@ function Dashboard() {
     const activeMenu = document.getElementsByClassName("active")[0];
     const menuToBeActivated = e.currentTarget;
     const home = document.getElementById("home");
+    const dashboardContent = document.getElementById("dashboardContent")
     const map = document.getElementById("googleMap");
     const sellerMenu = document.getElementById("sellerContent");
     const suggestions = document.getElementById("suggestionsContent");
@@ -22,25 +27,25 @@ function Dashboard() {
       menuToBeActivated.classList.add("active");
       console.log(menuToBeActivated.id);
       if (menuToBeActivated.id === "mainDashboard") {
-        home.hidden = false;
+        dashboardContent.hidden = false;
         map.hidden = true;
         sellerMenu.hidden = true;
         suggestions.hidden = true;
       } else if (menuToBeActivated.id === "map") {
         map.hidden = false;
-        home.hidden = true;
         sellerMenu.hidden = true;
         suggestions.hidden = true;
+        dashboardContent.hidden = true;
       } else if (menuToBeActivated.id === "sellerMenu") {
         sellerMenu.hidden = false;
         map.hidden = true;
-        home.hidden = true;
         suggestions.hidden = true;
+        dashboardContent.hidden = true;
       } else if (menuToBeActivated.id === "suggestionsMenu") {
         suggestions.hidden = false;
         map.hidden = true;
         sellerMenu.hidden = true;
-        home.hidden = true;
+        dashboardContent.hidden = true;
       }
     }
   };
@@ -224,18 +229,42 @@ function Dashboard() {
                 </form>
               </div>
 
-              <div>
-                <h3>Get Discount Voucher Up To 20% Off!</h3>
-              </div>
-
-              <div className="d-flex flex-column bd-highlight mb-3">
                 <div>
+                  <h3>Take a look around USC-TC!</h3>
+                  <p>Learn about the go to grubs near the University of San Carlos Talamban Campus. Take a look at our website!</p>
+                  <Carousel>
+                    <Carousel.Item>
+                      <Carousel.Caption>
+                        <h3>First slide label</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                      <Carousel.Caption>
+                        <h3>Second slide label</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                      <Carousel.Caption>
+                        <h3>Third slide label</h3>
+                        <p>
+                          Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                        </p>
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                  </Carousel>
+                </div>
+
+                <div style={{textAlign: "left", marginInlineStart: 100, padding: 15}}>
+                <div id="foodCategory">
                   <h3>Category</h3>
                 </div>
 
-                <div>
+                <div id="recentOrders">
                   <h3>Recent orders</h3>
-                </div>
+                </div>     
+                <div/>           
 
             <div id="googleMap" hidden>
               <GoogleMaps />
@@ -256,6 +285,15 @@ function Dashboard() {
               </div>
             </div>
           </main>
+
+          <div id="map" hidden>
+            <GoogleMaps />
+          </div>
+
+          <div id="sellerContent" hidden>
+            <SellerMenu />
+          </div>
+
         </div>
   ) : (
     <div>You do not have access to this page.</div>
