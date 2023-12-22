@@ -14,7 +14,7 @@ router.post("/login", accountController.login);
 router.post("/signup", accountController.signup);
 router.post("/addFood", upload.single("image"), foodController.addFood);
 router.post("/getFoodsByOwner", foodController.getFoodsByOwner);
-router.get("/image", foodController.getImage);
+router.get("/getAllFoods", foodController.getAllFoods);
 
 // router.patch("/disableAccount", accountController.disableAccount);
 // router.patch("/updateAccount", accountController.updateAccount);

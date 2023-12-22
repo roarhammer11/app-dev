@@ -1,11 +1,14 @@
 /* body::-webkit-scrollbar {
-  display: none;
-}
+  display: hidden;
+} */
 
 /* Hide scrollbar for IE, Edge and Firefox */
 body {
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  /* scrollbar-width: none; Firefox */
+  /* overflow-y: auto;
+  scrollbar-gutter: stable; */
+  overflow-y: scroll;
 }
 .App {
   text-align: center;
@@ -104,4 +107,4 @@ body {
 
 .image-button:hover {
   cursor: pointer;
-} 
+}

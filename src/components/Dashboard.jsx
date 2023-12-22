@@ -1,10 +1,9 @@
 import GoogleMaps from "./Map";
 import Dropdown from "react-bootstrap/Dropdown";
 import UserProfile from "./UserInfoWrapper";
+import Home from "./Home";
 import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
-import Carousel from 'react-bootstrap/Carousel';
-import ExampleCarouselImage from './sample.png';
 import '../App.css';
 function Dashboard() {
   const clearSession = () => {
@@ -14,7 +13,7 @@ function Dashboard() {
   const menuController = (e) => {
     const activeMenu = document.getElementsByClassName("active")[0];
     const menuToBeActivated = e.currentTarget;
-    const dashboardContent = document.getElementById("dashboardContent");
+    const home = document.getElementById("home");
     const map = document.getElementById("googleMap");
     const sellerMenu = document.getElementById("sellerContent");
     const suggestions = document.getElementById("suggestionsContent");
@@ -23,25 +22,25 @@ function Dashboard() {
       menuToBeActivated.classList.add("active");
       console.log(menuToBeActivated.id);
       if (menuToBeActivated.id === "mainDashboard") {
-        dashboardContent.hidden = false;
+        home.hidden = false;
         map.hidden = true;
         sellerMenu.hidden = true;
         suggestions.hidden = true;
       } else if (menuToBeActivated.id === "map") {
         map.hidden = false;
-        dashboardContent.hidden = true;
+        home.hidden = true;
         sellerMenu.hidden = true;
         suggestions.hidden = true;
       } else if (menuToBeActivated.id === "sellerMenu") {
         sellerMenu.hidden = false;
         map.hidden = true;
-        dashboardContent.hidden = true;
+        home.hidden = true;
         suggestions.hidden = true;
-      } else if (menuToBeActivated.id === "suggestions"){
+      } else if (menuToBeActivated.id === "suggestionsMenu") {
         suggestions.hidden = false;
         map.hidden = true;
         sellerMenu.hidden = true;
-        dashboardContent.hidden = true;
+        home.hidden = true;
       }
     }
   };
@@ -86,9 +85,9 @@ function Dashboard() {
               <button
                 className="list-group-item list-group-item-action py-2 ripple"
                 onClick={menuController}
-                id="suggestionsContent"
+                id="suggestionsMenu"
               >
-                <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                <i className="fa fa-lightbulb-o" aria-hidden="true"></i>
                 <span>Suggestions</span>
               </button>
             </div>
@@ -226,51 +225,29 @@ function Dashboard() {
               </div>
 
               <div>
-                <h3>Take a look around USC-TC!</h3>
-                <p>Learn about the go to grubs near the University of San Carlos Talamban Campus. Take a look at our website!</p>
-                <Carousel>
-                  <Carousel.Item>
-                    <ExampleCarouselImage text="First slide" />
-                    <Carousel.Caption>
-                      <h3>First slide label</h3>
-                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <ExampleCarouselImage text="Second slide" />
-                    <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <ExampleCarouselImage text="Third slide" />
-                    <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                      </p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                </Carousel>
+                <h3>Get Discount Voucher Up To 20% Off!</h3>
               </div>
 
-              <div style={{textAlign: "left", marginInlineStart: 100, padding: 15}}>
-                <div id="foodCategory">
+              <div className="d-flex flex-column bd-highlight mb-3">
+                <div>
                   <h3>Category</h3>
                 </div>
 
-                <div id="recentOrders">
+                <div>
                   <h3>Recent orders</h3>
                 </div>
 
-                <div id="googleMap" hidden>
-                  <GoogleMaps />
-                </div>
+            <div id="googleMap" hidden>
+              <GoogleMaps />
+            </div>
 
-                <div id="sellerContent" style={{height: 100 + "%", width: 100 + "%"}} hidden>
-                  <SellerMenu accountId={UserProfile.getAccountId()} />
-                </div>
+            <div
+              id="sellerContent"
+              style={{height: 100 + "%", width: 100 + "%"}}
+              hidden
+            >
+              <SellerMenu accountId={UserProfile.getAccountId()} />
+            </div>
 
                 <div id="suggestionsContent" hidden>
                   <Suggestions />
@@ -279,14 +256,6 @@ function Dashboard() {
               </div>
             </div>
           </main>
-
-          <div id="map" hidden>
-            <GoogleMaps />
-          </div>
-
-          <div id="sellerContent" hidden>
-            <SellerMenu />
-          </div>
         </div>
   ) : (
     <div>You do not have access to this page.</div>

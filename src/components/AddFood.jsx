@@ -12,10 +12,7 @@ function AddFood(props) {
   });
   const handleFoodSubmit = async (event) => {
     event.preventDefault();
-
-    // console.log(formValue);
     addFoodToServer(formValue);
-
     setFormValue({
       name: "",
       price: "",
@@ -44,9 +41,6 @@ function AddFood(props) {
     };
     document.getElementById("outputContainer").hidden = false;
   };
-
-  const fileToBlob = async (file) =>
-    new Blob([new Uint8Array(await file.arrayBuffer())], {type: file.type});
 
   async function addFoodToServer(data) {
     console.log(data);

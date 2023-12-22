@@ -70,6 +70,17 @@ class Food {
       }
     );
   }
+  static getAllFoods(result) {
+    dbConn.query("SELECT * FROM Food ORDER BY accountId", function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        console.log(res);
+        result(null, res);
+      }
+    });
+  }
   static image(result) {
     dbConn.query(
       "SELECT image FROM Food WHERE foodId = '20'",
