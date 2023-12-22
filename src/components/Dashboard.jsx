@@ -15,6 +15,7 @@ import topokkiman from '../assets/topokkiman.png'
 import low from '../assets/low.png'
 import med from '../assets/med.png'
 import high from '../assets/high.png'
+import logo from '../assets/CampusCrave.png'
 
 import "../App.css";
 function Dashboard() {
@@ -155,26 +156,9 @@ function Dashboard() {
             </button>
 
             <a className="navbar-brand" href="/dashboard">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                height="25"
-                alt="MDB Logo"
-                loading="lazy"
-              />
+              <h2 style={{margin: 5}}>CampusCrave</h2>
+              <img lassName="img-fluid" src={logo} alt="CampusCrave" style={{maxHeight: '50px'}}/>
             </a>
-
-            <form className="d-none d-md-flex input-group w-auto my-auto">
-              <input
-                autoComplete="off"
-                type="search"
-                className="form-control rounded"
-                placeholder='Search (ctrl + "/" to focus)'
-                style={{minWidth: 225 + "px"}}
-              />
-              <span className="input-group-text border-0">
-                <i className="fas fa-search"></i>
-              </span>
-            </form>
 
             <ul className="navbar-nav ms-auto d-flex flex-row">
               <Dropdown>
@@ -249,16 +233,16 @@ function Dashboard() {
         </nav>
       </header>
 
-      <main style={{marginTop: "55px"}}>
+      <main style={{marginTop: "60px"}}>
         <div style={{paddingLeft: "10vh"}} id="dashboardContent">
           <div id="home">
             <div
               className="d-flex justify-content-between align-items-center"
               style={{padding: "15px"}}
             >
-              <h1 style={{marginInlineStart: 100, padding: 15}}>
+              <h2 style={{marginInlineStart: 100, padding: 15}}>
                 Hello, {UserProfile.getName()}
-              </h1>
+              </h2>
               <form
                 className="input-group w-auto my-auto"
                 style={{display: "flex", flexShrink: 0, minWidth: "300px"}}
