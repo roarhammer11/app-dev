@@ -5,6 +5,8 @@ import Home from "./Home";
 import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
 import Settings from "./Settings";
+import Carousel from "react-bootstrap/Carousel";
+import ExampleCarouselImage from "./sample.png";
 import "../App.css";
 function Dashboard() {
   const clearSession = () => {
@@ -15,6 +17,7 @@ function Dashboard() {
     const activeMenu = document.getElementsByClassName("active")[0];
     const menuToBeActivated = e.currentTarget;
     const home = document.getElementById("home");
+
     const map = document.getElementById("googleMap");
     const sellerMenu = document.getElementById("sellerContent");
     const suggestions = document.getElementById("suggestionsContent");
@@ -39,8 +42,8 @@ function Dashboard() {
       } else if (menuToBeActivated.id === "sellerMenu") {
         sellerMenu.hidden = false;
         map.hidden = true;
-        home.hidden = true;
         suggestions.hidden = true;
+        home.hidden = true;
       } else if (menuToBeActivated.id === "suggestionsMenu") {
         suggestions.hidden = false;
         map.hidden = true;
@@ -237,18 +240,78 @@ function Dashboard() {
         </nav>
       </header>
 
-      <main
-        style={{marginTop: 58 + "px", marginLeft: 5 + "rem", width: 100 + "%"}}
-      >
-        <div
-          className="d-flex justify-content-center  pt-4"
-          style={{marginLeft: 10 + "vh"}}
-        >
-          <div className="d-flex flex-column bd-highlight mb-3">
-            <div id="home">
-              <Home userName={UserProfile.getName()} />
+      <main style={{marginTop: "55px"}}>
+        <div style={{paddingLeft: "10vh"}} id="dashboardContent">
+          <div id="home">
+            <div
+              className="d-flex justify-content-between align-items-center"
+              style={{padding: "15px"}}
+            >
+              <h1 style={{marginInlineStart: 100, padding: 15}}>
+                Hello, {UserProfile.getName()}
+              </h1>
+              <form
+                className="input-group w-auto my-auto"
+                style={{display: "flex", flexShrink: 0, minWidth: "300px"}}
+              >
+                <input
+                  autoComplete="off"
+                  type="search"
+                  className="form-control rounded"
+                  placeholder="What do you feel like eating today?"
+                  style={{minWidth: 300 + "px"}}
+                />
+                <span className="input-group-text border-0">
+                  <i className="fas fa-search"></i>
+                </span>
+              </form>
             </div>
 
+            <div>
+              <h3>Take a look around USC-TC!</h3>
+              <p>
+                Learn about the go to grubs near the University of San Carlos
+                Talamban Campus. Take a look at our website!
+              </p>
+              <Carousel>
+                <Carousel.Item>
+                  <Carousel.Caption>
+                    <h3>First slide label</h3>
+                    <p>
+                      Nulla vitae elit libero, a pharetra augue mollis interdum.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <Carousel.Caption>
+                    <h3>Second slide label</h3>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <Carousel.Caption>
+                    <h3>Third slide label</h3>
+                    <p>
+                      Praesent commodo cursus magna, vel scelerisque nisl
+                      consectetur.
+                    </p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              </Carousel>
+            </div>
+            <div id="foodCategory">
+              <h3>Category</h3>
+            </div>
+
+            <div id="recentOrders">
+              <h3>Recent orders</h3>
+            </div>
+            <div />
+          </div>
+
+          <div style={{textAlign: "left", marginInlineStart: 100, padding: 15}}>
             <div id="googleMap" hidden>
               <GoogleMaps />
             </div>
@@ -259,6 +322,14 @@ function Dashboard() {
           </div>
         </div>
       </main>
+
+      <div id="map" hidden>
+        <GoogleMaps />
+      </div>
+
+      <div id="sellerContent" hidden>
+        <SellerMenu />
+      </div>
     </div>
   ) : (
     <div>You do not have access to this page.</div>
