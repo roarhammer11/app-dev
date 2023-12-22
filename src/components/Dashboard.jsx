@@ -1,12 +1,13 @@
 import GoogleMaps from "./Map";
 import Dropdown from "react-bootstrap/Dropdown";
 import UserProfile from "./UserInfoWrapper";
-import Home from "./Home";
 import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
 
 import Carousel from "react-bootstrap/Carousel";
-import ExampleCarouselImage from "./sample.png";
+import chicken from '../assets/chicken.png';
+import topokkiman from '../assets/topokkiman.png';
+import wingers from '../assets/wingers.png';
 
 import "../App.css";
 function Dashboard() {
@@ -244,33 +245,31 @@ function Dashboard() {
                 Learn about the go to grubs near the University of San Carlos
                 Talamban Campus. Take a look at our website!
               </p>
+
               <Carousel>
                 <Carousel.Item>
+                  <img className="img-fluid" src={chicken} alt="24 Chicken" style={{maxHeight: '500px'}}/>
                   <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>
-                      Nulla vitae elit libero, a pharetra augue mollis interdum.
-                    </p>
+                    <h4>24 Chicken</h4>
+                    <p>Taste the best Korean Fried Chicken near Campus!</p>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
+                   <img className="img-fluid" src={wingers} alt="Wingers" style={{maxHeight: '500px'}}/>
+                   <Carousel.Caption>
+                    <h3>Wingers Unlimited</h3>
+                    <p>Have a little budget? You may want to try Unli Wings!</p>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>
-                      Praesent commodo cursus magna, vel scelerisque nisl
-                      consectetur.
-                    </p>
+                    <img className="img-fluid" src={topokkiman} alt="Topokkiman" style={{maxHeight: '500px'}}/>
+                    <Carousel.Caption>
+                    <h3>Topokkiman</h3>
+                    <p>Looking for that korean goodness? Check out Topokkiman near Rosedale!</p>
                   </Carousel.Caption>
                 </Carousel.Item>
               </Carousel>
+
             </div>
             <div id="foodCategory">
               <h3>Category</h3>
