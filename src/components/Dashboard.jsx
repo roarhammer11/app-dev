@@ -3,12 +3,11 @@ import Dropdown from "react-bootstrap/Dropdown";
 import UserProfile from "./UserInfoWrapper";
 import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
-
+import Settings from "./Settings";
 import Carousel from "react-bootstrap/Carousel";
-import chicken from '../assets/chicken.png';
-import topokkiman from '../assets/topokkiman.png';
-import wingers from '../assets/wingers.png';
-
+import chicken from '../assets/chicken.png'
+import wingers from '../assets/wingers.png'
+import topokkiman from '../assets/topokkiman.png'
 import "../App.css";
 function Dashboard() {
   const clearSession = () => {
@@ -30,13 +29,17 @@ function Dashboard() {
       if (menuToBeActivated.id === "mainDashboard") {
         home.hidden = false;
         map.hidden = true;
-        sellerMenu.hidden = true;
+        if (sellerMenu) {
+          sellerMenu.hidden = true;
+        }
         suggestions.hidden = true;
       } else if (menuToBeActivated.id === "map") {
         map.hidden = false;
-        sellerMenu.hidden = true;
-        suggestions.hidden = true;
         home.hidden = true;
+        if (sellerMenu) {
+          sellerMenu.hidden = true;
+        }
+        suggestions.hidden = true;
       } else if (menuToBeActivated.id === "sellerMenu") {
         sellerMenu.hidden = false;
         map.hidden = true;
@@ -45,12 +48,45 @@ function Dashboard() {
       } else if (menuToBeActivated.id === "suggestionsMenu") {
         suggestions.hidden = false;
         map.hidden = true;
-        sellerMenu.hidden = true;
+        if (sellerMenu) {
+          sellerMenu.hidden = true;
+        }
         home.hidden = true;
       }
     }
   };
 
+  const openSettingsModal = () => {
+    document.getElementById("settingsModalButton").click();
+  };
+
+  const DisplaySellerMenu = () => {
+    return UserProfile.getUserType() === "Seller" ? (
+      <button
+        className="list-group-item list-group-item-action py-2 ripple"
+        onClick={menuController}
+        id="sellerMenu"
+      >
+        <i className="fas fa-shop fa-fw me-3"></i>
+        <span>Seller Menu</span>
+      </button>
+    ) : (
+      <div></div>
+    );
+  };
+  const DisplaySellerContent = () => {
+    return UserProfile.getUserType() === "Seller" ? (
+      <div
+        id="sellerContent"
+        style={{height: 100 + "%", width: 100 + "%"}}
+        hidden
+      >
+        <SellerMenu accountId={UserProfile.getAccountId()} />
+      </div>
+    ) : (
+      <div></div>
+    );
+  };
   return sessionStorage.length > 0 ? (
     <div>
       <header>
@@ -80,14 +116,7 @@ function Dashboard() {
                 <i className="fas fa-chart-area fa-fw me-3"></i>
                 <span>Map</span>
               </button>
-              <button
-                className="list-group-item list-group-item-action py-2 ripple"
-                onClick={menuController}
-                id="sellerMenu"
-              >
-                <i className="fas fa-shop fa-fw me-3"></i>
-                <span>Seller Menu</span>
-              </button>
+              <DisplaySellerMenu />
               <button
                 className="list-group-item list-group-item-action py-2 ripple"
                 onClick={menuController}
@@ -153,10 +182,7 @@ function Dashboard() {
                   }}
                 >
                   <i className="fas fa-bell" style={{color: "black"}} />
-                  <span
-                    className=" translate-middle badge rounded-pill bg-danger"
-                    // style={{marginLeft: 10}}
-                  >
+                  <span className=" translate-middle badge rounded-pill bg-danger">
                     1
                   </span>
                 </Dropdown.Toggle>
@@ -201,7 +227,10 @@ function Dashboard() {
                     Hello {UserProfile.getName()}
                   </div>
                   <Dropdown.Item href="/dashboard/#">My profile</Dropdown.Item>
-                  <Dropdown.Item href="/dashboard/#">Settings</Dropdown.Item>
+                  <Dropdown.Item onClick={openSettingsModal}>
+                    Settings
+                  </Dropdown.Item>
+                  <Settings />
                   <Dropdown.Item href="/" onClick={clearSession}>
                     Logout
                   </Dropdown.Item>
@@ -285,15 +314,7 @@ function Dashboard() {
             <div id="googleMap" hidden>
               <GoogleMaps />
             </div>
-
-            <div
-              id="sellerContent"
-              style={{height: 100 + "%", width: 100 + "%"}}
-              hidden
-            >
-              <SellerMenu accountId={UserProfile.getAccountId()} />
-            </div>
-
+            <DisplaySellerContent />
             <div id="suggestionsContent" hidden>
               <Suggestions />
             </div>

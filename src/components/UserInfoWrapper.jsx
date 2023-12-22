@@ -11,6 +11,14 @@ var UserProfile = (function () {
     sessionStorage.setItem("accountId", accountId);
   };
 
+  const setEmail = (email) => {
+    sessionStorage.setItem("email", email);
+  };
+
+  const setPassword = (password) => {
+    sessionStorage.setItem("password", password);
+  };
+
   const getName = () => {
     return sessionStorage.getItem("name");
   };
@@ -23,6 +31,14 @@ var UserProfile = (function () {
     return sessionStorage.getItem("accountId");
   };
 
+  const getEmail = () => {
+    return sessionStorage.getItem("email");
+  };
+
+  const getPassword = () => {
+    return sessionStorage.getItem("password");
+  };
+
   const clearSession = function () {
     sessionStorage.clear();
   };
@@ -31,9 +47,13 @@ var UserProfile = (function () {
     setName: setName,
     setUsertype: setUsertype,
     setAccountId: setAccountId,
+    setEmail: setEmail,
+    setPassword: setPassword,
     getName: getName,
     getUserType: getUserType,
     getAccountId: getAccountId,
+    getEmail: getEmail,
+    getPassword: getPassword,
     clearSession: clearSession,
   };
 })();
