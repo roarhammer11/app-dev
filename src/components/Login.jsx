@@ -35,6 +35,8 @@ function Login({justifyActive}) {
       UserProfile.setName(responseData.name);
       UserProfile.setUsertype(responseData.userType);
       UserProfile.setAccountId(responseData.accountId);
+      UserProfile.setEmail(responseData.email);
+      UserProfile.setPassword(responseData.password);
       window.history.pushState(null, null, window.location.href + "dashboard");
       window.location.reload();
     }

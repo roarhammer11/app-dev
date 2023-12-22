@@ -7,7 +7,6 @@ function SellerMenu(accountId) {
   const [foodDisplay, setFoodDisplay] = useState([]);
 
   const createCards = useCallback(() => {
-    console.log("hehe");
     if (document.getElementById("noFood") && food.length !== 0) {
       document.getElementById("noFood").remove();
     }

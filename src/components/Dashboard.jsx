@@ -4,20 +4,9 @@ import UserProfile from "./UserInfoWrapper";
 import Home from "./Home";
 import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
+import Settings from "./Settings";
 import "../App.css";
-import {UsbRounded} from "@mui/icons-material";
 function Dashboard() {
-  // const sellerMenuController = () => {
-  //   if (UserProfile.getUserType() === "User") {
-  //     const sellerContent = document.getElementById("sellerContent");
-  //     const sellerMenu = document.getElementById("sellerMenu");
-  //     sellerMenu.hidden = true;
-  //     if (sellerContent && sellerMenu) {
-  //       sellerContent.remove();
-  //     }
-  //   }
-  // };
-
   const clearSession = () => {
     UserProfile.clearSession();
   };
@@ -62,16 +51,11 @@ function Dashboard() {
       }
     }
   };
-  // if (UserProfile.getUserType() === "User") {
-  //   document
-  //     .getElementById("sellerContent")
-  //     .addEventListener("load", function () {
-  //       document.getElementById("sellerContent").remove();
-  //     });
-  //   document.getElementById("sellerMenu").addEventListener("load", function () {
-  //     document.getElementById("sellerMenu").hidden = true;
-  //   });
-  // }
+
+  const openSettingsModal = () => {
+    document.getElementById("settingsModalButton").click();
+  };
+
   const DisplaySellerMenu = () => {
     return UserProfile.getUserType() === "Seller" ? (
       <button
@@ -91,7 +75,6 @@ function Dashboard() {
       <div
         id="sellerContent"
         style={{height: 100 + "%", width: 100 + "%"}}
-        // onLoad={sellerMenuController}
         hidden
       >
         <SellerMenu accountId={UserProfile.getAccountId()} />
@@ -240,7 +223,10 @@ function Dashboard() {
                     Hello {UserProfile.getName()}
                   </div>
                   <Dropdown.Item href="/dashboard/#">My profile</Dropdown.Item>
-                  <Dropdown.Item href="/dashboard/#">Settings</Dropdown.Item>
+                  <Dropdown.Item onClick={openSettingsModal}>
+                    Settings
+                  </Dropdown.Item>
+                  <Settings />
                   <Dropdown.Item href="/" onClick={clearSession}>
                     Logout
                   </Dropdown.Item>
