@@ -2,11 +2,11 @@ import AddFood from "./AddFood";
 import {useState, useEffect, useCallback, useRef} from "react";
 import {Buffer} from "buffer";
 import UserProfile from "./UserInfoWrapper";
-function SellerMenu(accountId) {
+function SellerMenu() {
   const dataFetchedRef = useRef(false);
   const [food, setFood] = useState([]);
   const [foodDisplay, setFoodDisplay] = useState([]);
-
+  const accountId = UserProfile.getAccountId();
   const createCards = useCallback(() => {
     if (document.getElementById("noFood") && food.length !== 0) {
       document.getElementById("noFood").remove();
@@ -47,10 +47,10 @@ function SellerMenu(accountId) {
     });
   }, [food]);
 
-  const getFoods = useCallback(async (accountId) => {
+  const getFoods = useCallback(async () => {
     var response = await fetch("/api/getFoodsByOwner", {
       method: "POST",
-      body: JSON.stringify(accountId),
+      body: JSON.stringify({accountId: accountId}),
       headers: {
         "Content-Type": "application/json",
       },
@@ -65,18 +65,20 @@ function SellerMenu(accountId) {
         setFood((food) => [...food, {foodRetrieved}]);
       }
     }
-  }, []);
+  }, [accountId]);
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     if (UserProfile.getUserType() === "Seller") {
-      getFoods(accountId);
+      getFoods();
     }
-  }, [food, accountId, getFoods]);
+  }, [food, getFoods]);
 
   const callback = (data) => {
-    getFoods(accountId);
+    if (UserProfile.getUserType() === "Seller") {
+      getFoods();
+    }
     const parent = document.getElementById("foodDisplay");
     while (parent.firstChild) {
       console.log(parent.firstChild);

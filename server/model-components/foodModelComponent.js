@@ -10,6 +10,7 @@ class Food {
     this.description = food.description;
     this.image = Buffer.from(food.image);
   }
+
   //create account
   static createFood(newFood, result) {
     dbConn.query("INSERT INTO Food set ?", newFood, function (err, res) {
