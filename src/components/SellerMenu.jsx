@@ -1,6 +1,7 @@
 import AddFood from "./AddFood";
 import {useState, useEffect, useCallback, useRef} from "react";
 import {Buffer} from "buffer";
+import UserProfile from "./UserInfoWrapper";
 function SellerMenu(accountId) {
   const dataFetchedRef = useRef(false);
   const [food, setFood] = useState([]);
@@ -69,7 +70,9 @@ function SellerMenu(accountId) {
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
-    getFoods(accountId);
+    if (UserProfile.getUserType() === "Seller") {
+      getFoods(accountId);
+    }
   }, [food, accountId, getFoods]);
 
   const callback = (data) => {
