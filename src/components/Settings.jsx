@@ -1,20 +1,63 @@
 import React, {useState} from "react";
 import UserProfile from "./UserInfoWrapper";
-import {MDBInput} from "mdb-react-ui-kit";
+import {MDBInput, MDBBtn} from "mdb-react-ui-kit";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-function Settings() {
+function Settings(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [formValue, setFormValue] = useState({
-    email: UserProfile.getEmail(),
-    password: "",
+    accountId: UserProfile.getAccountId(),
+    nameSettings: UserProfile.getName(),
+    emailSettings: UserProfile.getEmail(),
+    oldEmail: UserProfile.getEmail(),
+    passwordSettings: "",
     newPassword: "",
   });
-  const handleLoginSubmit = async (event) => {
+
+  const handleSettingsSubmit = async (event) => {
     event.preventDefault();
+    await updateAccount();
+    setFormValue({
+      accountId: UserProfile.getAccountId(),
+      nameSettings: UserProfile.getName(),
+      emailSettings: UserProfile.getEmail(),
+      oldEmail: UserProfile.getEmail(),
+      passwordSettings: "",
+      newPassword: "",
+    });
+  };
+
+  const updateAccount = async () => {
     console.log(formValue);
+    console.log(UserProfile.getPassword());
+
+    if (UserProfile.getPassword() === formValue.passwordSettings) {
+      if (formValue.newPassword === "") {
+        formValue.newPassword = UserProfile.getPassword();
+      }
+      var response = await fetch("/api/updateAccount", {
+        method: "PATCH",
+        body: JSON.stringify(formValue),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      var responseData = await response.json();
+      console.log(responseData);
+      if (responseData.success === false) {
+        alert("Unexpected error in updating account.");
+      } else {
+        UserProfile.setName(formValue.nameSettings);
+        UserProfile.setEmail(formValue.emailSettings);
+        UserProfile.setPassword(formValue.newPassword);
+        props.func();
+        alert(responseData.message);
+      }
+    } else {
+      alert("Incorrect Password");
+    }
   };
 
   const onChange = (e) => {
@@ -42,7 +85,7 @@ function Settings() {
           <div className="m-auto btn btn-primary btn-rounded image-button mb-4">
             <label
               className="form-label text-white image-button"
-              htmlFor="image"
+              htmlFor="imageSettings"
             >
               Select image (Optional)
             </label>
@@ -51,20 +94,11 @@ function Settings() {
           <div hidden>
             <MDBInput
               onChange={loadImageFile}
-              name="image"
+              name="imageSettings"
               wrapperClass="mb-4"
-              id="image"
+              id="imageSettings"
               type="file"
               accept="image/*"
-            />
-          </div>
-          <div hidden id="outputSettingsContainer">
-            <img
-              className="m-auto"
-              id="outputSettigns"
-              alt=" "
-              width={150}
-              height={150}
             />
           </div>
         </div>
@@ -90,24 +124,34 @@ function Settings() {
           <Modal.Title>Settings</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
+          <form onSubmit={handleSettingsSubmit} id="settingForm">
             <MDBInput
-              value={formValue.email}
+              value={formValue.nameSettings}
               onChange={onChange}
-              name="email"
+              name="nameSettings"
+              wrapperClass="mb-4"
+              label="Name"
+              id="nameSettings"
+              type="text"
+              required
+            />
+            <MDBInput
+              value={formValue.emailSettings}
+              onChange={onChange}
+              name="emailSettings"
               wrapperClass="mb-4"
               label="Email address"
-              id="email"
+              id="emailSettings"
               type="email"
               required
             />
             <MDBInput
-              value={formValue.password}
+              value={formValue.passwordSettings}
               onChange={onChange}
-              name="password"
+              name="passwordSettings"
               wrapperClass="mb-4"
               label="Password"
-              id="password"
+              id="passwordSettings"
               type="password"
               className="input"
               required
@@ -123,16 +167,22 @@ function Settings() {
               className="input"
             />
             <DisplayDynamicImageSettings />
+            <div className="d-flex justify-content-center">
+              <div hidden id="outputSettingsContainer">
+                <img
+                  className="m-auto"
+                  id="outputSettings"
+                  alt=" "
+                  width={150}
+                  height={150}
+                />
+              </div>
+            </div>
+            <MDBBtn className="mb-4 w-100 mt-3" type="submit">
+              Submit
+            </MDBBtn>
           </form>
         </Modal.Body>
-        {/* <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer> */}
       </Modal>
     </div>
   );

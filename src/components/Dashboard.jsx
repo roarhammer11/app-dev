@@ -23,6 +23,13 @@ function Dashboard() {
     UserProfile.clearSession();
   };
 
+  const callback = () => {
+    document.getElementById("dropdownName").innerHTML =
+      "Hello " + UserProfile.getName();
+    document.getElementById("homeUserName").innerHTML =
+      "Hello, " + UserProfile.getName() + "!";
+  };
+
   const menuController = (e) => {
     const activeMenu = document.getElementsByClassName("active")[0];
     const menuToBeActivated = e.currentTarget;
@@ -220,14 +227,14 @@ function Dashboard() {
                   />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <div className="text-center">
+                  <div className="text-center" id="dropdownName">
                     Hello {UserProfile.getName()}
                   </div>
                   <Dropdown.Item href="/dashboard/#">My profile</Dropdown.Item>
                   <Dropdown.Item onClick={openSettingsModal}>
                     Settings
                   </Dropdown.Item>
-                  <Settings />
+                  <Settings func={callback} />
                   <Dropdown.Item href="/" onClick={clearSession}>
                     Logout
                   </Dropdown.Item>
@@ -245,7 +252,10 @@ function Dashboard() {
               className="d-flex justify-content-between align-items-center"
               style={{padding: "15px"}}
             >
-              <h3 style={{marginInlineStart: 100, padding: 15}}>
+              <h3
+                style={{marginInlineStart: 100, padding: 15}}
+                id="homeUserName"
+              >
                 Hello, {UserProfile.getName()}!
               </h3>
               <form

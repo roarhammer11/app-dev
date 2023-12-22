@@ -36,6 +36,7 @@ function Login({justifyActive}) {
       UserProfile.setUsertype(responseData.userType);
       UserProfile.setAccountId(responseData.accountId);
       UserProfile.setEmail(responseData.email);
+      console.log(responseData.password);
       UserProfile.setPassword(responseData.password);
       window.history.pushState(null, null, window.location.href + "dashboard");
       window.location.reload();
