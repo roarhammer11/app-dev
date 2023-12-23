@@ -32,6 +32,7 @@ function Suggestions() {
         indicators={true}
         interval={null}
         data-bs-theme="dark"
+        style={{height: 700 + "px"}}
       >
         {slides}
       </Carousel>
