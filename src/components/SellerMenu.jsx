@@ -2,12 +2,11 @@ import AddFood from "./AddFood";
 import UserProfile from "./UserInfoWrapper";
 import {useState, useEffect, useCallback, useRef} from "react";
 import {Buffer} from "buffer";
-import UserProfile from "./UserInfoWrapper";
-function SellerMenu(accountId) {
+function SellerMenu() {
   const dataFetchedRef = useRef(false);
   const [food, setFood] = useState([]);
   const [foodDisplay, setFoodDisplay] = useState([]);
-
+  const accountId = UserProfile.getAccountId();
   const createCards = useCallback(() => {
     if (document.getElementById("noFood") && food.length !== 0) {
       document.getElementById("noFood").remove();
@@ -48,10 +47,10 @@ function SellerMenu(accountId) {
     });
   }, [food]);
 
-  const getFoods = useCallback(async (accountId) => {
+  const getFoods = useCallback(async () => {
     var response = await fetch("/api/getFoodsByOwner", {
       method: "POST",
-      body: JSON.stringify(accountId),
+      body: JSON.stringify({accountId: accountId}),
       headers: {
         "Content-Type": "application/json",
       },
@@ -66,7 +65,7 @@ function SellerMenu(accountId) {
         setFood((food) => [...food, {foodRetrieved}]);
       }
     }
-  }, []);
+  }, [accountId]);
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
@@ -103,23 +102,19 @@ function SellerMenu(accountId) {
         foodMenuContent.hidden = false;
         addFoodContent.hidden = true;
         console.log(food);
-        setFoodDisplay(test());
+        setFoodDisplay(createCards());
       }
     }
   };
 
   return (
     <div style={{marginInlineStart: 0, padding: 15}}>
-      <h3>
-                Hello, {UserProfile.getName()}!
-            </h3>
-            <p>
-              Please input all the necessary information about the dish.
-            </p>
+      <h3>Hello, {UserProfile.getName()}!</h3>
+      <p>Please input all the necessary information about the dish.</p>
       <div
         className="d-flex flex-row list-group list-group-flush m-auto"
         id="sellerOptionsContainer"
-        style={{width: 50 + "rem", padding: '50px'}}
+        style={{width: 50 + "rem", padding: "50px"}}
       >
         <button
           className="list-group-item list-group-item-action py-2 ripple active"
@@ -145,6 +140,9 @@ function SellerMenu(accountId) {
             className="d-flex flex-row flex-wrap hideScrollbar"
             id="foodDisplay"
           >
+            <div className="m-auto" id="noFood">
+              No food available for this vendor.
+            </div>
             {foodDisplay}
           </div>
         </div>
