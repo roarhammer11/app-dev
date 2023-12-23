@@ -48,8 +48,21 @@ class Account {
           Object.values(res)[0]?.accountId,
           Object.values(res)[0]?.name,
           Object.values(res)[0]?.email,
-          Object.values(res)[0]?.userType
+          Object.values(res)[0]?.userType,
+          Object.values(res)[0]?.password
         );
+      }
+    });
+  }
+  static updateAccount(accountId, updatedAccount, result) {
+    const query = "UPDATE Accounts SET ? WHERE accountId = ?";
+    dbConn.query(query, [updatedAccount, accountId], (err, res) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        console.log(res);
+        result(null, res);
       }
     });
   }

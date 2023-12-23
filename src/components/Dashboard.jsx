@@ -5,22 +5,29 @@ import SellerMenu from "./SellerMenu";
 import Suggestions from "./Suggestions";
 import Settings from "./Settings";
 import Carousel from "react-bootstrap/Carousel";
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import CardGroup from "react-bootstrap/CardGroup";
+import Button from "react-bootstrap/Button";
 
-import chicken from '../assets/chicken.png'
-import wingers from '../assets/wingers.png'
-import topokkiman from '../assets/topokkiman.png'
-import low from '../assets/low.png'
-import med from '../assets/med.png'
-import high from '../assets/high.png'
-import logo from '../assets/CampusCrave.png'
+import chicken from "../assets/chicken.png";
+import wingers from "../assets/wingers.png";
+import topokkiman from "../assets/topokkiman.png";
+import low from "../assets/low.png";
+import med from "../assets/med.png";
+import high from "../assets/high.png";
+import logo from "../assets/CampusCrave.png";
 
 import "../App.css";
 function Dashboard() {
   const clearSession = () => {
     UserProfile.clearSession();
+  };
+
+  const callback = () => {
+    document.getElementById("dropdownName").innerHTML =
+      "Hello " + UserProfile.getName();
+    document.getElementById("homeUserName").innerHTML =
+      "Hello, " + UserProfile.getName() + "!";
   };
 
   const menuController = (e) => {
@@ -90,7 +97,7 @@ function Dashboard() {
         style={{height: 100 + "%", width: 100 + "%"}}
         hidden
       >
-        <SellerMenu accountId={UserProfile.getAccountId()} />
+        <SellerMenu />
       </div>
     ) : (
       <div></div>
@@ -157,7 +164,12 @@ function Dashboard() {
 
             <a className="navbar-brand" href="/dashboard">
               <h2 style={{margin: 5}}>CampusCrave</h2>
-              <img lassName="img-fluid" src={logo} alt="CampusCrave" style={{maxHeight: '50px'}}/>
+              <img
+                className="img-fluid"
+                src={logo}
+                alt="CampusCrave"
+                style={{maxHeight: "50px"}}
+              />
             </a>
 
             <ul className="navbar-nav ms-auto d-flex flex-row">
@@ -215,14 +227,14 @@ function Dashboard() {
                   />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <div className="text-center">
+                  <div className="text-center" id="dropdownName">
                     Hello {UserProfile.getName()}
                   </div>
                   <Dropdown.Item href="/dashboard/#">My profile</Dropdown.Item>
                   <Dropdown.Item onClick={openSettingsModal}>
                     Settings
                   </Dropdown.Item>
-                  <Settings />
+                  <Settings func={callback} />
                   <Dropdown.Item href="/" onClick={clearSession}>
                     Logout
                   </Dropdown.Item>
@@ -240,7 +252,10 @@ function Dashboard() {
               className="d-flex justify-content-between align-items-center"
               style={{padding: "15px"}}
             >
-              <h3 style={{marginInlineStart: 100, padding: 15}}>
+              <h3
+                style={{marginInlineStart: 100, padding: 15}}
+                id="homeUserName"
+              >
                 Hello, {UserProfile.getName()}!
               </h3>
               <form
@@ -263,24 +278,42 @@ function Dashboard() {
             <div>
               <Carousel>
                 <Carousel.Item>
-                  <img className="img-fluid" src={chicken} alt="24 Chicken" style={{maxHeight: '500px'}}/>
+                  <img
+                    className="img-fluid"
+                    src={chicken}
+                    alt="24 Chicken"
+                    style={{maxHeight: "500px"}}
+                  />
                   <Carousel.Caption>
                     <h4>24 Chicken</h4>
                     <p>Taste the best Korean Fried Chicken near Campus!</p>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                   <img className="img-fluid" src={wingers} alt="Wingers" style={{maxHeight: '500px'}}/>
-                   <Carousel.Caption>
+                  <img
+                    className="img-fluid"
+                    src={wingers}
+                    alt="Wingers"
+                    style={{maxHeight: "500px"}}
+                  />
+                  <Carousel.Caption>
                     <h3>Wingers Unlimited</h3>
                     <p>Have a little budget? You may want to try Unli Wings!</p>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img className="img-fluid" src={topokkiman} alt="Topokkiman" style={{maxHeight: '500px'}}/>
-                    <Carousel.Caption>
+                  <img
+                    className="img-fluid"
+                    src={topokkiman}
+                    alt="Topokkiman"
+                    style={{maxHeight: "500px"}}
+                  />
+                  <Carousel.Caption>
                     <h3>Topokkiman</h3>
-                    <p>Looking for that korean goodness? Check out Topokkiman near Rosedale!</p>
+                    <p>
+                      Looking for that korean goodness? Check out Topokkiman
+                      near Rosedale!
+                    </p>
                   </Carousel.Caption>
                 </Carousel.Item>
               </Carousel>
@@ -290,11 +323,18 @@ function Dashboard() {
                 Learn about the go to grubs near the University of San Carlos
                 Talamban Campus. Take a look at our website!
               </p>
-
             </div>
 
             <div>
-              <div id="foodCategory" style={{flexDirection: "column", alignContent: "start",marginInlineStart: 100, padding: 40}}>
+              <div
+                id="foodCategory"
+                style={{
+                  flexDirection: "column",
+                  alignContent: "start",
+                  marginInlineStart: 100,
+                  padding: 40,
+                }}
+              >
                 <h3 style={{display: "flex"}}>Category</h3>
                 <CardGroup>
                   <Card style={{margin: 15}}>
@@ -305,36 +345,41 @@ function Dashboard() {
                         On a strict budget? View your options here.
                       </Card.Text>
                     </Card.Body>
-                    <Button variant="outline-primary" size="sm">Go</Button>
+                    <Button variant="outline-primary" size="sm">
+                      Go
+                    </Button>
                   </Card>
                   <Card style={{margin: 15}}>
-                  <img src={med} alt="Medium Price" />
+                    <img src={med} alt="Medium Price" />
                     <Card.Body>
                       <Card.Title>$$</Card.Title>
                       <Card.Text>
                         Keeping it safe? View your options here.
                       </Card.Text>
                     </Card.Body>
-                    <Button variant="outline-primary" size="sm">Go</Button>
+                    <Button variant="outline-primary" size="sm">
+                      Go
+                    </Button>
                   </Card>
                   <Card style={{margin: 15}}>
-                  <img src={high} alt="High Price" />
+                    <img src={high} alt="High Price" />
                     <Card.Body>
                       <Card.Title>$$$</Card.Title>
                       <Card.Text>
                         Want to splurge? View your options here.
                       </Card.Text>
                     </Card.Body>
-                    <Button variant="outline-primary" size="sm">Go</Button>
+                    <Button variant="outline-primary" size="sm">
+                      Go
+                    </Button>
                   </Card>
                 </CardGroup>
               </div>
 
               <div id="recentOrders" style={{display: "flex", marginInlineStart: 100, padding: 30}}>
-                <h3>Recently viewed</h3>
+                <h3>Recent orders</h3>
               </div>
             </div>
-            
           </div>
           <div style={{textAlign: "left", marginInlineStart: 100, padding: 15}}>
             <div id="googleMap" hidden>
