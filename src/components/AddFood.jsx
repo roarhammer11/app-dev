@@ -114,7 +114,7 @@ function AddFood(props) {
               accept="image/*"
             />
           </div>
-          <div hidden id="outputContainer">
+          <div hidden id="outputContainer" className="m-auto">
             <img
               className="m-auto"
               id="output"
