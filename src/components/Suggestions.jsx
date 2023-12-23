@@ -183,7 +183,7 @@ function Suggestions() {
                     padding: 10 + "px",
                   }}
                 >
-                  <p>{key.description}</p>
+                  <p className="text-start">{key.description}</p>
                 </div>
 
                 <h6 className="card-subtitle mt-5">{key.price + " PHP"}</h6>
