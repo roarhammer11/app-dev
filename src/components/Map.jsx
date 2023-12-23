@@ -21,10 +21,12 @@ export default function GoogleMaps() {
   if (!isLoaded) return "Loading Maps";
 
   return (
-    <GoogleMap
-      mapContainerStyle={mapContainerStyle}
-      zoom={12}
-      center={center}
-    />
+    <div style={{marginLeft: 10 + "rem", marginTop: 8 + "rem"}}>
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        zoom={12}
+        center={center}
+      />
+    </div>
   );
 }

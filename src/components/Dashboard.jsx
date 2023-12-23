@@ -376,31 +376,26 @@ function Dashboard() {
                 </CardGroup>
               </div>
 
-              <div id="recentOrders" style={{display: "flex", marginInlineStart: 100, padding: 30}}>
+              <div
+                id="recentOrders"
+                style={{display: "flex", marginInlineStart: 100, padding: 30}}
+              >
                 <h3>Recent orders</h3>
               </div>
             </div>
           </div>
-          <div style={{textAlign: "left", marginInlineStart: 100, padding: 15}}>
-            <div id="googleMap" hidden>
-              <GoogleMaps />
-            </div>
 
+          <div id="googleMap" style={{width: 100 + "%"}} hidden>
+            <GoogleMaps />
+          </div>
+          <div style={{textAlign: "left", marginInlineStart: 100, padding: 15}}>
             <DisplaySellerContent />
-            <div id="suggestionsContent" hidden>
-              <Suggestions />
-            </div>
+          </div>
+          <div id="suggestionsContent" hidden>
+            <Suggestions />
           </div>
         </div>
       </main>
-
-      <div id="map" hidden>
-        <GoogleMaps />
-      </div>
-
-      <div id="sellerContent" hidden>
-        <SellerMenu />
-      </div>
     </div>
   ) : (
     <div>You do not have access to this page.</div>

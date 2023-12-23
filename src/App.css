@@ -108,3 +108,13 @@ body {
 .image-button:hover {
   cursor: pointer;
 }
+
+/* Custom color for the next arrow icon */
+.custom-icon-next {
+  color: green; /* Change this color to your desired arrow color */
+}
+
+/* Custom color for the prev arrow icon */
+.custom-icon-prev {
+  color: red; /* Change this color to your desired arrow color */
+}

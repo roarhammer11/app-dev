@@ -1,58 +1,93 @@
 import {useState, useEffect, useCallback, useRef} from "react";
+import {Carousel, Container, Col} from "react-bootstrap";
 import {Buffer} from "buffer";
-function Suggestions(props) {
+function Suggestions() {
   const dataFetchedRef = useRef(false);
   const [food, setFood] = useState([]);
   const [lowFoodPrice, setLowFoodPrice] = useState([]);
   const [mediumFoodPrice, setMediumFoodPrice] = useState([]);
   const [highFoodPrice, setHighFoodPrice] = useState([]);
-  // const [categories, setCategories] = useState([]);
-  const [categorizedFood, setCategorizedFood] = useState([]);
-  // const [binEdges, setBinEdges] = useState([]);
 
-  const displayCards = useCallback((categorizedFood, food) => {
-    console.log(categorizedFood);
-    var low = [];
-    var medium = [];
-    var high = [];
-    console.log(food.length);
-    if (categorizedFood.length !== 0) {
-      var lowCount = 0;
-      var mediumCount = 0;
-      var highCount = 0;
-      food.forEach((item) => {
-        console.log(item);
-        if (
-          categorizedFood[0].length !== 0 &&
-          lowCount < categorizedFood[0].length &&
-          item.foodId === categorizedFood[0][lowCount].foodId
-        ) {
-          lowCount++;
-          low.push(item);
-        } else if (
-          categorizedFood[1].length !== 0 &&
-          mediumCount < categorizedFood[1].length &&
-          item.foodId === categorizedFood[1][mediumCount].foodId
-        ) {
-          mediumCount++;
-          medium.push(item);
-        } else if (
-          categorizedFood[2].length !== 0 &&
-          highCount < categorizedFood[2].length &&
-          item.foodId === categorizedFood[2][highCount].foodId
-        ) {
-          highCount++;
-          high.push(item);
-        }
-      });
-    }
-    console.log(low);
-    setLowFoodPrice(createCards(low));
-    console.log(medium);
-    setMediumFoodPrice(createCards(medium));
-    console.log(high);
-    setHighFoodPrice(createCards(high));
+  const createCarousel = useCallback((food) => {
+    console.log(food);
+    const numSlides = Math.ceil(food.length / 3);
+    console.log(numSlides);
+    const slides = Array.from({length: numSlides}, (_, index) => (
+      <Carousel.Item key={index}>
+        <Container>
+          <div className="d-flex flex-row">
+            {food.slice(index * 3, (index + 1) * 3).map((item) => (
+              <Col key={item.foodId}>{item}</Col>
+            ))}
+          </div>
+        </Container>
+      </Carousel.Item>
+    ));
+    // return food.map(function (key, value) {
+    //   return <Carousel.Item>{key}</Carousel.Item>;
+    // });
+    return (
+      <Carousel
+        controls={true}
+        indicators={true}
+        interval={null}
+        data-bs-theme="dark"
+      >
+        {slides}
+      </Carousel>
+    );
   }, []);
+
+  const displayCards = useCallback(
+    (categorizedFood, food) => {
+      console.log(categorizedFood);
+      var low = [];
+      var medium = [];
+      var high = [];
+      console.log(food.length);
+      if (categorizedFood.length !== 0) {
+        var lowCount = 0;
+        var mediumCount = 0;
+        var highCount = 0;
+        food.forEach((item) => {
+          console.log(item);
+          if (
+            categorizedFood[0].length !== 0 &&
+            lowCount < categorizedFood[0].length &&
+            item.foodId === categorizedFood[0][lowCount].foodId
+          ) {
+            lowCount++;
+            low.push(item);
+          } else if (
+            categorizedFood[1].length !== 0 &&
+            mediumCount < categorizedFood[1].length &&
+            item.foodId === categorizedFood[1][mediumCount].foodId
+          ) {
+            mediumCount++;
+            medium.push(item);
+          } else if (
+            categorizedFood[2].length !== 0 &&
+            highCount < categorizedFood[2].length &&
+            item.foodId === categorizedFood[2][highCount].foodId
+          ) {
+            highCount++;
+            high.push(item);
+          }
+        });
+      }
+      // console.log(low);
+      // setLowFoodPrice(createCards(low));
+      // console.log(medium);
+      // setMediumFoodPrice(createCards(medium));
+      // console.log(high);
+      // setHighFoodPrice(createCards(high));
+      setLowFoodPrice(createCarousel(createCards(low)));
+      setMediumFoodPrice(createCarousel(createCards(medium)));
+      setHighFoodPrice(createCarousel(createCards(high)));
+    },
+    [createCarousel]
+  );
+
   const categorizePrices = useCallback(
     (foodPrices, foodId, binEdges, food) => {
       const priceCategories = foodPrices.map((food) => {
@@ -85,7 +120,6 @@ function Suggestions(props) {
         }
       }
       foodWraper.push(low, medium, high);
-      setCategorizedFood(foodWraper);
       displayCards(foodWraper, food);
       console.log(foodWraper);
     },
@@ -101,7 +135,6 @@ function Suggestions(props) {
       const minPrice = Math.min(...foodPrices);
       const maxPrice = Math.max(...foodPrices);
       const numBins = 3; // You can adjust the number of bins as needed
-
       const binWidth = (maxPrice - minPrice) / numBins;
       const edges = Array.from(
         {length: numBins + 1},
@@ -121,14 +154,18 @@ function Suggestions(props) {
           <div
             className="card"
             style={{
-              width: 350 + "px",
-              height: 500 + "px",
+              width: 300 + "px",
+              height: 600 + "px",
               margin: 1 + "rem",
+              backgroundColor: "white",
+              color: "black",
             }}
+            key={key.foodId}
           >
-            <div className="mt-5">
+            <div className="d-flex flex-column justify-content-center align-items-center">
               <img
-                className="card-img-top m-auto"
+                className="card-img-top"
+                // src={Buffer.from(key.foodRetrieved.image).toString()}
                 src={
                   key.image.data.length !== 0
                     ? Buffer.from(key.image).toString()
@@ -137,10 +174,19 @@ function Suggestions(props) {
                 alt="Food"
                 style={{width: 200, height: 200, marginTop: 2 + "rem"}}
               />
-              <div className="card-body">
-                <h5 className="card-title">{key.name}</h5>
-                <p className="card-text">{key.description}</p>
-                <h6 className="card-subtitle">{key.price + " PHP"}</h6>
+              <div className="card-body d-flex flex-column align-items-center justify-content-center">
+                <h5 className="card-title ">{key.name}</h5>
+                <div
+                  style={{
+                    height: "200px",
+                    overflowY: "auto",
+                    padding: 10 + "px",
+                  }}
+                >
+                  <p>{key.description}</p>
+                </div>
+
+                <h6 className="card-subtitle mt-5">{key.price + " PHP"}</h6>
               </div>
             </div>
           </div>
@@ -180,7 +226,7 @@ function Suggestions(props) {
   }, [food, getFoods, displayCards]);
   return (
     <div>
-      <div>
+      <div style={{width: 100 + "%"}}>
         <div>Low</div>
         {lowFoodPrice}
       </div>

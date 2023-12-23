@@ -16,15 +16,15 @@ function SellerMenu() {
         <div
           className="card"
           style={{
-            width: 350 + "px",
-            height: 500 + "px",
+            width: 300 + "px",
+            height: 600 + "px",
             margin: 1 + "rem",
           }}
           key={key.foodRetrieved.foodId}
         >
-          <div className="mt-5">
+          <div className="d-flex flex-column justify-content-center align-items-center">
             <img
-              className="card-img-top m-auto"
+              className="card-img-top"
               // src={Buffer.from(key.foodRetrieved.image).toString()}
               src={
                 key.foodRetrieved.image.data.length !== 0
@@ -34,10 +34,19 @@ function SellerMenu() {
               alt="Food"
               style={{width: 200, height: 200, marginTop: 2 + "rem"}}
             />
-            <div className="card-body">
-              <h5 className="card-title">{key.foodRetrieved.name}</h5>
-              <p className="card-text">{key.foodRetrieved.description}</p>
-              <h6 className="card-subtitle">
+            <div className="card-body d-flex flex-column align-items-center justify-content-center">
+              <h5 className="card-title ">{key.foodRetrieved.name}</h5>
+              <div
+                style={{
+                  height: "200px",
+                  overflowY: "auto",
+                  padding: 10 + "px",
+                }}
+              >
+                <p>{key.foodRetrieved.description}</p>
+              </div>
+
+              <h6 className="card-subtitle mt-5">
                 {key.foodRetrieved.price + " PHP"}
               </h6>
             </div>
@@ -131,7 +140,7 @@ function SellerMenu() {
           <span>Food Menu</span>
         </button>
       </div>
-      <div className="mt-5">
+      <div className="mt-5" style={{width: 100 + "%"}}>
         <div id="addFoodContent">
           <AddFood func={callback} />
         </div>
@@ -139,6 +148,7 @@ function SellerMenu() {
           <div
             className="d-flex flex-row flex-wrap hideScrollbar"
             id="foodDisplay"
+            style={{width: 100 + "%"}}
           >
             <div className="m-auto" id="noFood">
               No food available for this vendor.
