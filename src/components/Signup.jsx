@@ -98,6 +98,7 @@ function Signup({justifyActive}) {
           id="form1"
           value={formValue.userType}
           onChange={onChange}
+          className="custom-select"
           required
         >
           <option value="User">User</option>

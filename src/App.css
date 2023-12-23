@@ -109,12 +109,20 @@ body {
   cursor: pointer;
 }
 
-/* Custom color for the next arrow icon */
-.custom-icon-next {
-  color: green; /* Change this color to your desired arrow color */
+.custom-select {
+  background-color: #3498db; /* Background color */
+  color: #fff; /* Text color */
+  border: 2px solid #2980b9; /* Border color */
+  border-radius: 5px; /* Border radius */
+  padding: 5px; /* Padding */
+  font-weight: bold; /* Font weight */
+  cursor: pointer; /* Cursor style */
+  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
-/* Custom color for the prev arrow icon */
-.custom-icon-prev {
-  color: red; /* Change this color to your desired arrow color */
+/* Style for selected option */
+.custom-select option:checked {
+  background-color: #2980b9; /* Background color for selected option */
+  color: #fff; /* Text color for selected option */
 }
