@@ -68,7 +68,7 @@ function AddFood(props) {
           onChange={onChange}
           name="name"
           wrapperClass="mb-4"
-          label="Name"
+          label="Name of the Dish"
           id="name"
           type="text"
           required
@@ -79,7 +79,7 @@ function AddFood(props) {
           onChange={onChange}
           name="price"
           wrapperClass="mb-4"
-          label="Price"
+          label="Price (in ₱)"
           id="price"
           type="number"
           required

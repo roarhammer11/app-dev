@@ -302,7 +302,7 @@ function Dashboard() {
                     <Card.Body>
                       <Card.Title>$</Card.Title>
                       <Card.Text>
-                        Strict budget? View your options here.
+                        On a strict budget? View your options here.
                       </Card.Text>
                     </Card.Body>
                     <Button variant="outline-primary" size="sm">Go</Button>
@@ -331,7 +331,7 @@ function Dashboard() {
               </div>
 
               <div id="recentOrders" style={{display: "flex", marginInlineStart: 100, padding: 30}}>
-                <h3>Recent orders</h3>
+                <h3>Recently viewed</h3>
               </div>
             </div>
             
@@ -340,6 +340,7 @@ function Dashboard() {
             <div id="googleMap" hidden>
               <GoogleMaps />
             </div>
+
             <DisplaySellerContent />
             <div id="suggestionsContent" hidden>
               <Suggestions />
